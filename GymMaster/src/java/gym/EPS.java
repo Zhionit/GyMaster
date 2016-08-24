@@ -10,7 +10,7 @@ public class EPS {
     /**
      * Identificador de la EPS
      */
-    private String id;
+    private int id;
     
     /**
      * Nombre de la EPS
@@ -23,7 +23,7 @@ public class EPS {
      * @param id Identificador de la EPS
      * @param nombre Nombre de la EPS
      */
-    public EPS(String id, String nombre){
+    public EPS(int id, String nombre){
         this.id = id;
         this.nombre = nombre;
     }
@@ -32,14 +32,14 @@ public class EPS {
      * Obtiene el identificador de la EPS
      * @return Identificador
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
     /**
      * Modifica el identificador de la EPS
      * @param id Nuevo identificador
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     /**

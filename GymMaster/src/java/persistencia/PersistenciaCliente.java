@@ -60,7 +60,8 @@ public class PersistenciaCliente {
             Cliente c;
             while (rs.next()) {
                 
-                String id, nombre, apellido, direccion, epsId;
+                String id, nombre, apellido, direccion;
+                int epsId;
                 Date fechaNacimiento;
                 boolean genero;
                 
@@ -74,11 +75,11 @@ public class PersistenciaCliente {
                 
                 
                 // Getting EPS information
-                epsId = rs.getString(EPS);
+                epsId = rs.getInt(EPS);
                 Statement epsQueryStatment = con.createStatement();
-                ResultSet epsQueryResult = epsQueryStatment.executeQuery("SELECT * FROM EPS WHERE ID = '" + epsId + "'" );
+                ResultSet epsQueryResult = epsQueryStatment.executeQuery("SELECT NOMBRE FROM EPS WHERE ID = '" + epsId + "'" );
                 epsQueryResult.next();
-                EPS eps = new EPS(epsQueryResult.getString(1), epsQueryResult.getString(2));
+                EPS eps = new EPS(epsId, epsQueryResult.getString("NOMBRE"));
                 
                 // Getting Blood type information
                 TipoSangre tipoSange = new TipoSangre(rs.getByte(TIPO_SANGRE), rs.getBoolean(RH));
@@ -101,7 +102,7 @@ public class PersistenciaCliente {
             ResultSet serviceQueryResultSet = serviceQueryStatement.executeQuery("SELECT ID, DESCRIPCION FROM SERVICIO WHERE CLIENTE = '" + cliente.getId() + "'");
             Servicio servicio;
             while(serviceQueryResultSet.next()){
-                servicio = new Servicio(serviceQueryResultSet.getString("ID"), serviceQueryResultSet.getString("DESCRIPCION"));
+                servicio = new Servicio(serviceQueryResultSet.getInt("ID"), serviceQueryResultSet.getString("DESCRIPCION"));
                 servicios.add(servicio);
             }
         } catch (SQLException e) {

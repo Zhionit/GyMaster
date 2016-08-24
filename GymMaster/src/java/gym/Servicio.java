@@ -9,7 +9,7 @@ public class Servicio {
     /**
      * Identificador unívoco del servicio
      */
-    private String id;
+    private int id;
     /**
      * Descripción del servicio
      */
@@ -20,7 +20,7 @@ public class Servicio {
      * @param id Identificador unívoco del servicio
      * @param descripcion Descripción del servicio
      */
-    public Servicio(String id, String descripcion){
+    public Servicio(int id, String descripcion){
         this.id = id;
         this.descripcion = descripcion;
     }
@@ -29,14 +29,14 @@ public class Servicio {
      * Obtiene el identificador unívoco del servicio
      * @return Identificador unívoco
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
     /**
      * Modifica el identificador unívoco del servicio
      * @param id Nuevo identificador
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     /**
