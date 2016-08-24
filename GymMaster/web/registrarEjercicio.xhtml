@@ -13,6 +13,27 @@ and open the template in the editor.
         <title>Agregar Ejercicio</title>
     </h:head>
     <h:body>
+        <b:navBar brand="GyMaster" brandHref="#" inverse="true">
+            <b:navbarLinks>
+                <b:navLink value=" "></b:navLink>
+                <b:navLink value=" "></b:navLink>
+                
+                <b:dropMenu value="Clientes">
+                    <b:navLink value="Agregar" href="faces/registrarCliente.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="faces/clientes.xhtml"></b:navLink>
+                </b:dropMenu>
+                <b:navLink value=" "></b:navLink>
+                <b:dropMenu value="Eps">
+                    <b:navLink value="Agregar" href="faces/registrarEPS.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="faces/eps.xhtml"></b:navLink>
+                </b:dropMenu>
+                <b:navLink value=" "></b:navLink>
+                <b:dropMenu value="Ejercicios">
+                    <b:navLink value="Agregar" href="faces/#"></b:navLink>
+                    <b:navLink value="Mostrar" href="faces/ejercicios.xhtml"></b:navLink>
+                </b:dropMenu>
+            </b:navbarLinks>
+        </b:navBar>
         <div>Formulario de registro de un ejercicio</div>
         <br/>
         <br/>
@@ -23,23 +44,23 @@ and open the template in the editor.
                     <!--Por si se necesita un campo para la identificación-->
                     
                     <h:outputLabel value="Identificación del usuario  :" />
-                    <b:inputText id="identificacionUsuarioTxt" placeholder="123456789" value="" required="true"/>
+                    <b:inputText id="identificacionUsuarioTxt" placeholder="123456789" required="true"/>
                     <h:messages for="identificacionUsuarioTxt" style="color: red"/>
 
                     <h:outputLabel value="Nombre ejercicio  :" />
-                    <b:inputText id="nombreTxt" placeholder="Push-ups" value="" required="true" />
+                    <b:inputText id="nombreTxt" placeholder="Push-ups" required="true" />
                     <h:messages for="nombreTxt" style="color: red"/>
                     
                     <h:outputLabel value="Series   :" />
-                    <b:inputText id="seriesTxt" placeholder="5 Series" value="" required="true" />
+                    <b:inputText id="seriesTxt" placeholder="5 Series" required="true" />
                     <h:messages for="seriesTxt" style="color: red"/>
                     
                     <h:outputLabel value="Repeticiones   :" />
-                    <b:inputText id="repeticionesTxt" placeholder="5 Repeticiones" value="" required="true" />
+                    <b:inputText id="repeticionesTxt" placeholder="5 Repeticiones" required="true" />
                     <h:messages for="repeticionesTxt" style="color: red"/>
                     
                     <h:outputLabel value="Peso   :" />
-                    <b:inputText id="pesoTxt" placeholder="5 Kg" value="" required="true" />
+                    <b:inputText id="pesoTxt" placeholder="5 Kg" required="true" />
                     <h:messages for="pesoTxt" style="color: red"/>
                     
                     <h:outputLabel value="Día   :" />
@@ -55,7 +76,9 @@ and open the template in the editor.
 
                     <!--<h:commandButton actionListener="" value="Registrar" />-->
                 </h:panelGrid>
+            <b:commandButton look="primary" action="clientes.xhtml" value="Registrar" />
             </h:form>
+            
         </b:container>
         
     </h:body>
