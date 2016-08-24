@@ -11,9 +11,28 @@
     </h:head>
     <h:body>
         
-        <h:outputLabel class="jumbotron" value="Bienvenido a GyMaster, su entrenador persona!"/>
-        <br/>
-        <br/>
+        <b:navBar brand="Brand" brandHref="#" inverse="true">
+            <b:navbarLinks>
+                <b:dropMenu value="Clientes">
+                    <b:navLink value="Agregar" href="index.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="clientes.xhtml"></b:navLink>
+                </b:dropMenu>
+                <b:dropMenu value="Eps">
+                    <b:navLink value="Agregar" href="registrarEPS.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="eps.xhtml"></b:navLink>
+                </b:dropMenu>
+                <b:dropMenu value="Ejercicios">
+                    <b:navLink value="Agregar" href="registrarEjercicio.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="ejercicios.xhtml"></b:navLink>
+                </b:dropMenu>
+            </b:navbarLinks>
+        </b:navBar>
+        
+        <b:container >
+            <h:outputLabel  class="jumbotron" value="Bienvenido a GyMaster, su entrenador persona!"/>
+            <br/>
+            <br/>
+        </b:container>
         
         <b:container >
             <b:row>
@@ -73,15 +92,23 @@
                             <f:selectItem itemValue="-" itemLabel="Negativo" />
                         </b:selectOneMenu>
 
-                        <h:outputLabel value="Fecha nacimiento" />
+                        <h:outputLabel value="Fecha nacimiento:" />
                         <b:dateTimePicker show-time="false" show-date="true" placeholder="1-1-2000" 
                                           showButtonPanel="true" showClearButton="true" 
                                           show-close-button="true"/>
+                        <br/>
+                        
+                        <h:outputLabel value="Rutinas:"/>
+                        <b:selectMultiMenu id="brandID" >
+                                <f:selectItem itemValue="1" itemLabel="Fiat" />
+                                <f:selectItem itemValue="2" itemLabel="Honda" />
+                                <f:selectItem itemValue="3" itemLabel="Opel" />
+                        </b:selectMultiMenu>
 
                     </b:panelGrid>
 
                     <!--<h:commandButton actionListener="" value="Registrar" />-->
-                    <b:commandButton look="primary" action="registrarEjercicio.xhtml" value="Navegar" />
+                    <b:commandButton look="primary" action="registrarEjercicio.xhtml" value="Registrar" />
 
                 </h:form>
             </b:row>
