@@ -20,5 +20,45 @@ public class EPS {
      * Nombre de la EPS
      */
     private String nombre;
+
+    
+    /**
+     * Crea una nueva instancia de EPS
+     * @param id Identificador de la EPS
+     * @param nombre Nombre de la EPS
+     */
+    public EPS(String id, String nombre){
+        this.id = id;
+        this.nombre = nombre;
+    }
+    
+    /**
+     * Obtiene el identificador de la EPS
+     * @return Identificador
+     */
+    public String getId() {
+        return id;
+    }
+    /**
+     * Modifica el identificador de la EPS
+     * @param id Nuevo identificador
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+    /**
+     * Obtiene el nombre de la EPS
+     * @return Nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+    /**
+     * Modifica el nombre de la EPS
+     * @param nombre Nuevo nombre
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
 }
