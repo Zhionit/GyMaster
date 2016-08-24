@@ -19,13 +19,13 @@
             <b:row>
                 <h:form>
                     <b:panelGrid columns="3">
-                        <b:column medium-screen="2">
+                        <b:column small-screen="1">
                             <h:outputLabel value="Identificación: " />
                         </b:column>
                         <b:column medium-screen="6">
                             <b:inputText placeholder="1234567890" id="identificacionTxt" required="false" />
                         </b:column>
-                        <b:column medium-screen="2">
+                        <b:column medium-screen="5">
                             <h:messages for="identificacionTxt" style="color: red"/>
                         </b:column>
                         
@@ -81,7 +81,7 @@
                     </b:panelGrid>
 
                     <!--<h:commandButton actionListener="" value="Registrar" />-->
-                    <b:commandButton look="primary" action="registrarEPS.xhtml" value="Navegar" />
+                    <b:commandButton look="primary" action="registrarEjercicio.xhtml" value="Navegar" />
 
                 </h:form>
             </b:row>
