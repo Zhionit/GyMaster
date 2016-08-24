@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--@author Marlon Ramirez - @Zhionit -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>GyMaster</title>
+    </h:head>
+    <h:body>
+        
+        <b:navBar brand="GyMaster" brandHref="#" inverse="true">
+            <b:navbarLinks>
+                <b:navLink value=" "></b:navLink>
+                <b:navLink value=" "></b:navLink>
+                
+                <b:dropMenu value="Clientes">
+                    <b:navLink value="Agregar" href="#"></b:navLink>
+                    <b:navLink value="Mostrar" href="clientes.xhtml"></b:navLink>
+                </b:dropMenu>
+                <b:navLink value=" "></b:navLink>
+                <b:dropMenu value="Eps">
+                    <b:navLink value="Agregar" href="registrarEPS.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="eps.xhtml"></b:navLink>
+                </b:dropMenu>
+                <b:navLink value=" "></b:navLink>
+                <b:dropMenu value="Ejercicios">
+                    <b:navLink value="Agregar" href="registrarEjercicio.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="ejercicios.xhtml"></b:navLink>
+                </b:dropMenu>
+            </b:navbarLinks>
+        </b:navBar>
+        <br/>
+        <br/>
+        <b:container >
+            <h:outputLabel  class="jumbotron" value="Bienvenido a GyMaster, su entrenador persona!"/>
+            <br/>
+            <br/>
+            <br/>
+        </b:container>
+        
+        <b:container >
+            <b:row>
+                <h:form>
+                    <b:panelGrid columns="3">
+                        <b:column small-screen="1">
+                            <h:outputLabel value="Identificación: " />
+                        </b:column>
+                        <b:column medium-screen="6">
+                            <b:inputText placeholder="1234567890" id="identificacionTxt" required="false" />
+                        </b:column>
+                        <b:column medium-screen="5">
+                            <h:messages for="identificacionTxt" style="color: red"/>
+                        </b:column>
+                        
+
+                        <h:outputLabel value="Nombre: " />
+                        <b:inputText placeholder="Pepito" id="nombreTxt" required="false" />
+                        <h:messages for="nombreTxt" style="color: red"/>
+
+                        <h:outputLabel value="Apellido: " />
+                        <b:inputText placeholder="Perez" id="apellidoTxt" required="false" />
+                        <h:messages for="apellidoTxt" style="color: red"/>
+
+                        <h:outputLabel value="Genero: " />
+                        <b:selectOneMenu id="generoLstBx">
+                            <f:selectItem itemValue="f" itemLabel="Femenino" />
+                            <f:selectItem itemValue="m" itemLabel="Masculino" />
+                        </b:selectOneMenu>
+                        <br/>
+
+                        <h:outputLabel value="Dirección: " />
+                        <b:inputText placeholder="Calle falsa 123" id="direccionTxt" required="false" />
+                        <h:messages for="direccionTxt" style="color: red"/>
+
+                        <h:outputLabel value="Eps: " />
+                        <b:selectOneMenu id="epsLstBx">
+                            <f:selectItem itemValue="cafeSalud" itemLabel="Cafesalud" />
+                            <f:selectItem itemValue="saludTotal" itemLabel="Salud Total" />
+                            <f:selectItem itemValue="nuevaEps" itemLabel="NuevaEPS" />
+                        </b:selectOneMenu>
+                        <br/>
+
+                        <h:outputLabel value="Tipo de sangre: " />
+                        <b:selectOneMenu id="tipoSangreLstBx">
+                            <f:selectItem itemValue="A" itemLabel="A" />
+                            <f:selectItem itemValue="B" itemLabel="B" />
+                            <f:selectItem itemValue="AB" itemLabel="AB" />
+                            <f:selectItem itemValue="O" itemLabel="O" />
+                        </b:selectOneMenu>
+                        <b:selectOneMenu id="RHLstBx" >
+                            <f:selectItem itemValue="+" itemLabel="Positivo" />
+                            <f:selectItem itemValue="-" itemLabel="Negativo" />
+                        </b:selectOneMenu>
+
+                        <h:outputLabel value="Fecha nacimiento:" />
+                        <b:dateTimePicker show-time="false" show-date="true" placeholder="1-1-2000" 
+                                          showButtonPanel="true" showClearButton="true" 
+                                          show-close-button="true"/>
+                        <br/>
+                        
+                        <h:outputLabel value="Rutinas:"/>
+                        <b:selectMultiMenu id="brandID" >
+                                <f:selectItem itemValue="1" itemLabel="Fiat" />
+                                <f:selectItem itemValue="2" itemLabel="Honda" />
+                                <f:selectItem itemValue="3" itemLabel="Opel" />
+                        </b:selectMultiMenu>
+
+                    </b:panelGrid>
+
+                    <!--<h:commandButton actionListener="" value="Registrar" />-->
+                    <b:commandButton look="primary" action="registrarEjercicio.xhtml" value="Registrar" />
+
+                </h:form>
+            </b:row>
+        </b:container>
+        
+    </h:body>
+</html>
+
