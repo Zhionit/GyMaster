@@ -35,8 +35,7 @@
         <br/>
         <br/>
         <b:container >
-            <h:outputLabel  class="jumbotron" value="Bienvenido a GyMaster, su entrenador persona!"/>
-            <br/>
+            <h:outputLabel style="font-size: 20px" value="Formulario para registrar un nuevo cliente"/>
             <br/>
             <br/>
         </b:container>
@@ -49,20 +48,26 @@
                             <h:outputLabel value="Identificación: " />
                         </b:column>
                         <b:column medium-screen="6">
-                            <b:inputText placeholder="1234567890" id="identificacionTxt" required="false" />
+                            <b:inputText placeholder="1234567890" id="identificacionTxt" required="true">
+                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                            </b:inputText>
                         </b:column>
                         <b:column medium-screen="5">
-                            <h:messages for="identificacionTxt" style="color: red"/>
+                            <b:messages for="identificacionTxt" style="color: red"/>
                         </b:column>
                         
 
                         <h:outputLabel value="Nombre: " />
-                        <b:inputText placeholder="Pepito" id="nombreTxt" required="false" />
-                        <h:messages for="nombreTxt" style="color: red"/>
+                        <b:inputText placeholder="Pepito" id="nombreTxt" required="true">
+                            <f:validateRegex pattern="/^[a-zA-Z]+$/"/>
+                        </b:inputText>
+                        <b:messages for="nombreTxt" style="color: red"/>
 
                         <h:outputLabel value="Apellido: " />
-                        <b:inputText placeholder="Perez" id="apellidoTxt" required="false" />
-                        <h:messages for="apellidoTxt" style="color: red"/>
+                        <b:inputText placeholder="Perez" id="apellidoTxt" required="true" >
+                            <f:validateRegex pattern="/^[a-zA-Z]+$/"/>
+                        </b:inputText>
+                        <b:messages for="apellidoTxt" style="color: red"/>
 
                         <h:outputLabel value="Genero: " />
                         <b:selectOneMenu id="generoLstBx">
@@ -72,8 +77,10 @@
                         <br/>
 
                         <h:outputLabel value="Dirección: " />
-                        <b:inputText placeholder="Calle falsa 123" id="direccionTxt" required="false" />
-                        <h:messages for="direccionTxt" style="color: red"/>
+                        <b:inputText placeholder="Calle falsa 123" id="direccionTxt" required="true" >
+                            <f:validateRegex pattern="/^[0-9a-zA-Z]+$/"/>
+                        </b:inputText>
+                        <b:messages for="direccionTxt" style="color: red"/>
 
                         <h:outputLabel value="Eps: " />
                         <b:selectOneMenu id="epsLstBx">
@@ -96,22 +103,24 @@
                         </b:selectOneMenu>
 
                         <h:outputLabel value="Fecha nacimiento:" />
-                        <b:dateTimePicker show-time="false" show-date="true" placeholder="1-1-2000" 
+                        <b:dateTimePicker id="cumpleaniosDataPicker" show-time="false" show-date="true" placeholder="1-1-2000" 
                                           showButtonPanel="true" showClearButton="true" 
-                                          show-close-button="true"/>
+                                          show-close-button="true" required="true"/>
+                        <b:messages for="cumpleaniosDataPicker" style="color: red"/>
+                        <br/>
                         <br/>
                         
                         <h:outputLabel value="Rutinas:"/>
-                        <b:selectMultiMenu id="brandID" >
+                        <b:selectMultiMenu id="brandID" required="true">
                                 <f:selectItem itemValue="1" itemLabel="Fiat" />
                                 <f:selectItem itemValue="2" itemLabel="Honda" />
                                 <f:selectItem itemValue="3" itemLabel="Opel" />
                         </b:selectMultiMenu>
-
+                        <b:messages for="brandID" style="color: red"/>
                     </b:panelGrid>
 
-                    <!--<h:commandButton actionListener="" value="Registrar" />-->
-                    <b:commandButton look="primary" action="registrarEjercicio.xhtml" value="Registrar" />
+                    <!--<h:commandButton look="primary" actionListener="" value="Registrar" />-->
+                    <b:commandButton look="primary" action="faces/registrarCliente.xhtml" value="SIN ACTIONLISTENER" />
 
                 </h:form>
             </b:row>
