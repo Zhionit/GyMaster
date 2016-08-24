@@ -3,7 +3,8 @@
 
 <!--@author Marlon Ramirez - @Zhionit -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>GyMaster</title>
     </h:head>
@@ -13,47 +14,55 @@
         <br/>
         <br/>
         
-          
         <h:form>
             
             <h:panelGrid columns="3">
-                <h:outputLabel value="Identificación" />
+                <h:outputLabel value="Identificación: " />
                 <h:inputText id="identificacionTxt" value="ojo" required="false" label=" Requerido"/>
                 <h:messages for="identificacionTxt" style="color: red"/>
                 
-                <h:outputLabel value="Nombre" />
+                <h:outputLabel value="Nombre: " />
                 <h:inputText id="nombreTxt" value="ojo" required="false" label=" Requerido"/>
                 <h:messages for="nombreTxt" style="color: red"/>
                 
-                <h:outputLabel value="Apellido" />
+                <h:outputLabel value="Apellido: " />
                 <h:inputText id="apellidoTxt" value="ojo" required="false" label=" Requerido"/>
                 <h:messages for="apellidoTxt" style="color: red"/>
                 
-                <h:outputLabel value="Genero" />
-                <h:inputText id="generoTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="generoTxt" style="color: red"/>
+                <h:outputLabel value="Genero: " />
+                <h:selectOneMenu id="generoLstBx">
+                    <f:selectItem itemValue="f" itemLabel="Femenino" />
+                    <f:selectItem itemValue="m" itemLabel="Masculino" />
+                </h:selectOneMenu>
+                <br/>
                 
-                <h:outputLabel value="Dirección" />
+                <h:outputLabel value="Dirección: " />
                 <h:inputText id="direccionTxt" value="ojo" required="false" label=" Requerido"/>
                 <h:messages for="direccionTxt" style="color: red"/>
                 
-                <h:outputLabel value="Teléfono de contacto" />
+                <h:outputLabel value="Teléfono de contacto: " />
                 <h:inputText id="telefonoTxt" value="ojo" required="false" label=" Requerido"/>
                 <h:messages for="telefonoTxt" style="color: red"/>
                 
-                <h:outputLabel value="Eps" />
-                <h:inputText id="epsTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="epsTxt" style="color: red"/>
+                <h:outputLabel value="Eps: " />
+                <h:selectOneMenu id="epsLstBx">
+                    <f:selectItem itemValue="cafeSalud" itemLabel="Cafesalud" />
+                    <f:selectItem itemValue="saludTotal" itemLabel="Salud Total" />
+                    <f:selectItem itemValue="nuevaEps" itemLabel="NuevaEPS" />
+                </h:selectOneMenu>
+                <br/>
                 
-                <h:outputLabel value="Tipo de sangre + RH" />
-                <h:inputText id="sangreYRhTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="sangreYRhTxt" style="color: red"/>
-                
-                <!--<h:selectManyListbox>
-                    <h:selectItem itemValue="1" itemLabel="Item 1" />
-                    <f:selectItem itemValue="2" itemLabel="Item 2" />
-                </h:selectManyListbox>-->
-                
+                <h:outputLabel value="Tipo de sangre: " />
+                <h:selectOneMenu id="tipoSangreLstBx">
+                    <f:selectItem itemValue="A" itemLabel="A" />
+                    <f:selectItem itemValue="B" itemLabel="B" />
+                    <f:selectItem itemValue="AB" itemLabel="AB" />
+                    <f:selectItem itemValue="O" itemLabel="O" />
+                </h:selectOneMenu>
+                <h:selectOneMenu id="RHLstBx" >
+                    <f:selectItem itemValue="+" itemLabel="Positivo" />
+                    <f:selectItem itemValue="-" itemLabel="Negativo" />
+                </h:selectOneMenu>
                 
                 <h:outputLabel value="Fecha nacimiento" />
                 <h:inputText id="nacimientoTxt" value="ojo" required="false" label=" Requerido"/>
