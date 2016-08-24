@@ -93,7 +93,7 @@ public class ConexionBaseDatos {
                 clientes.add(c);
             }
         } catch (SQLException e) {
-            System.out.println("SQL exception occured" + e);
+            System.out.println("SQL exception occured:" + e);
         }
 
     }
@@ -110,11 +110,18 @@ public class ConexionBaseDatos {
                 servicios.add(servicio);
             }
         } catch (SQLException e) {
-            System.out.println("SQL exception occured" + e);
+            System.out.println("SQL exception occured:" + e);
         }
     }
     
     public int agregarEjercicio(Ejercicio ejercicio, Cliente cliente){
+        try {
+            Statement inserExerciseStatement = connection.createStatement();
+            
+            
+        } catch (SQLException e) {
+            System.out.println("SQL exception occured:" + e);
+        }
         
         return -1;
     }

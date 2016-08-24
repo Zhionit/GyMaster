@@ -8,9 +8,13 @@ package gym;
 public class Ejercicio {
 
     /**
-     * Nombre del ejercicio
+     * Descripción del ejercicio
      */
-    private String nombre;
+    private String descripcion;
+    /**
+     * Orden secuencial del ejercicio en la rutina
+     */
+    private int ordenSecuencial;
     /**
      * Número de series a realizar
      */
@@ -26,34 +30,52 @@ public class Ejercicio {
 
     /**
      * Crea una nueva instancia de Ejercicio
-     * @param nombre Nombre del ejercicio
+     * @param descripcion Nombre del ejercicio
+     * @param ordenSecuencial Orden secuencial del ejercicio en la rutina
      * @param series Número de series a realizar
      * @param repeticiones Número de repeticiones por serie
      * @param peso Peso en KG a usar en el ejercicio
      */
-    public Ejercicio(String nombre, int series, int repeticiones, int peso) {
-        this.nombre = nombre;
+    public Ejercicio(String descripcion, int ordenSecuencial, int series, int repeticiones, int peso) {
+        this.descripcion = descripcion;
+        this.ordenSecuencial = ordenSecuencial;
         this.series = series;
         this.repeticiones = repeticiones;
         this.peso = peso;
     }
 
     /**
-     * Obtiene el nombre del ejercicio
+     * Obtiene la descripcion del ejercicio
      *
-     * @return Nombre
+     * @return Descripción
      */
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
     /**
-     * Modifica el nombre del ejercicio
+     * Modifica la descripcion del ejercicio
      *
-     * @param nombre Nuevo nombre
+     * @param descripcion Nueva descripción
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    /**
+     * Obtiene el orden secuencial del ejercicio en la rutina
+     * @return Orden Secuencial
+     */
+    public int getOrdenSecuencial(){
+        return ordenSecuencial;
+    }
+    
+    /**
+     * Modifica el orden secuencial del ejercicio
+     * @param ordenSecuencial Nuevo orden
+     */
+    public void setOrdenSecuencial(int ordenSecuencial){
+        this.ordenSecuencial = ordenSecuencial;
     }
 
     /**
