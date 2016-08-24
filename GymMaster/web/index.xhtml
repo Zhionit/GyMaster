@@ -11,7 +11,7 @@
     </h:head>
     <h:body>
         
-        <b:navBar brand="GyMaster" brandHref="#" inverse="true">
+        <b:navBar brand="GyMaster" brandHref="faces/index.xhtml" inverse="true">
             <b:navbarLinks>
                 <b:navLink value=" "></b:navLink>
                 <b:navLink value=" "></b:navLink>
@@ -34,86 +34,33 @@
         </b:navBar>
         <br/>
         <b:container >
-            <h:outputLabel  class="jumbotron" value="Bienvenido a GyMaster, su entrenador persona!"/>
+            <h:outputLabel style="font-size: 40px" value="Bienvenido a GyMaster, su entrenador persona!"/>
             <br/>
             <br/>
             <br/>
         </b:container>
         
-        <b:container >
-            <b:row>
-                <h:form>
-                    <b:panelGrid columns="3">
-                        <b:column small-screen="1">
-                            <h:outputLabel value="Identificación: " />
-                        </b:column>
-                        <b:column medium-screen="6">
-                            <b:inputText placeholder="1234567890" id="identificacionTxt" required="false" />
-                        </b:column>
-                        <b:column medium-screen="5">
-                            <h:messages for="identificacionTxt" style="color: red"/>
-                        </b:column>
-                        
-
-                        <h:outputLabel value="Nombre: " />
-                        <b:inputText placeholder="Pepito" id="nombreTxt" required="false" />
-                        <h:messages for="nombreTxt" style="color: red"/>
-
-                        <h:outputLabel value="Apellido: " />
-                        <b:inputText placeholder="Perez" id="apellidoTxt" required="false" />
-                        <h:messages for="apellidoTxt" style="color: red"/>
-
-                        <h:outputLabel value="Genero: " />
-                        <b:selectOneMenu id="generoLstBx">
-                            <f:selectItem itemValue="f" itemLabel="Femenino" />
-                            <f:selectItem itemValue="m" itemLabel="Masculino" />
-                        </b:selectOneMenu>
-                        <br/>
-
-                        <h:outputLabel value="Dirección: " />
-                        <b:inputText placeholder="Calle falsa 123" id="direccionTxt" required="false" />
-                        <h:messages for="direccionTxt" style="color: red"/>
-
-                        <h:outputLabel value="Eps: " />
-                        <b:selectOneMenu id="epsLstBx">
-                            <f:selectItem itemValue="cafeSalud" itemLabel="Cafesalud" />
-                            <f:selectItem itemValue="saludTotal" itemLabel="Salud Total" />
-                            <f:selectItem itemValue="nuevaEps" itemLabel="NuevaEPS" />
-                        </b:selectOneMenu>
-                        <br/>
-
-                        <h:outputLabel value="Tipo de sangre: " />
-                        <b:selectOneMenu id="tipoSangreLstBx">
-                            <f:selectItem itemValue="A" itemLabel="A" />
-                            <f:selectItem itemValue="B" itemLabel="B" />
-                            <f:selectItem itemValue="AB" itemLabel="AB" />
-                            <f:selectItem itemValue="O" itemLabel="O" />
-                        </b:selectOneMenu>
-                        <b:selectOneMenu id="RHLstBx" >
-                            <f:selectItem itemValue="+" itemLabel="Positivo" />
-                            <f:selectItem itemValue="-" itemLabel="Negativo" />
-                        </b:selectOneMenu>
-
-                        <h:outputLabel value="Fecha nacimiento:" />
-                        <b:dateTimePicker show-time="false" show-date="true" placeholder="1-1-2000" 
-                                          showButtonPanel="true" showClearButton="true" 
-                                          show-close-button="true"/>
-                        <br/>
-                        
-                        <h:outputLabel value="Rutinas:"/>
-                        <b:selectMultiMenu id="brandID" >
-                                <f:selectItem itemValue="1" itemLabel="Fiat" />
-                                <f:selectItem itemValue="2" itemLabel="Honda" />
-                                <f:selectItem itemValue="3" itemLabel="Opel" />
-                        </b:selectMultiMenu>
-
-                    </b:panelGrid>
-
-                    <!--<h:commandButton actionListener="" value="Registrar" />-->
-                    <b:commandButton look="primary" action="registrarEjercicio.xhtml" value="Registrar" />
-
-                </h:form>
-            </b:row>
+        <b:container>
+            <h:outputLabel style="font-size: 20px" value="Con tecnologías de: "/>
+            <br/>
+            <br/>
+            <br/>
+            <b:image height="200px" width="270px" value="http://s3.amazonaws.com/logospire/6040/original/6040.png?1304508227" tooltip="JSF - JavaSerfer Faces" />
+            <b:image height="200px" width="220px" value="https://pbs.twimg.com/profile_images/735908400735911936/nTDV7Wa1.jpg" tooltip="BootsFaces" />
+            <b:image height="200px" width="320px" value="https://2.bp.blogspot.com/-NozVwAjpXGU/VzSnQixD4AI/AAAAAAAAB2Y/zeK6eb4R678bbNCTsovIYgNdkGmioRNDQCLcB/s1600/netbeans%2Blogo.png" tooltip="Netbeans" />
+            <br/>
+        </b:container>
+        
+        <b:container>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <b:label style="font-size: 20px" text="Hecho por:"/>
+            <br/>
+            <br/>
+            <b:label style="font-size: 16px" text="Armando Castillos - @ArmandoNCM"/>
+            <b:label style="font-size: 16px" text="Marlon Ramírez - @ Zhionit"/>
         </b:container>
         
     </h:body>
