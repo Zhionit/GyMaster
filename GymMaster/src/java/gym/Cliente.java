@@ -38,10 +38,10 @@ public class Cliente {
      * Dirección del cliente
      */
     private String direccion;
-//    /**
-//     * Lista de telefonos de contacto del cliente
-//     */
-//    private List<String> telefonos;
+    /**
+     * Lista de telefonos de contacto del cliente
+     */
+    private List<String> telefonos;
     /**
      * Empresa Prestadora de Salud a la cual esta afiliado el cliente
      */
@@ -59,7 +59,7 @@ public class Cliente {
      */
     private Rutina[] rutinas;
 
-    public Cliente(String id, String nombre, String apellido, boolean genero, TipoSangre tipoSangre, Date fechaNacimiento, String direccion, EPS eps) {
+    public Cliente(String id, String nombre, String apellido, boolean genero, TipoSangre tipoSangre, Date fechaNacimiento, String direccion, List<String> telefonos, EPS eps) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -67,7 +67,7 @@ public class Cliente {
         this.tipoSangre = tipoSangre;
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
-//        this.telefonos = telefonos;
+        this.telefonos = telefonos;
         this.eps = eps;
     }
 
@@ -169,20 +169,20 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-//    /**
-//     * Obtiene la lista de telefonos de contacto del cliente
-//     * @return Lista de telefonos de contacto del cliente
-//     */
-//    public List<String> getTelefonos() {
-//        return telefonos;
-//    }
-//    /**
-//     * Modifica la lista de telefonos de contacto del cliente
-//     * @param telefonos Nueva lista de telefonos de contacto del cliente
-//     */
-//    public void setTelefonos(List<String> telefonos) {
-//        this.telefonos = telefonos;
-//    }
+    /**
+     * Obtiene la lista de telefonos de contacto del cliente
+     * @return Lista de telefonos de contacto del cliente
+     */
+    public List<String> getTelefonos() {
+        return telefonos;
+    }
+    /**
+     * Modifica la lista de telefonos de contacto del cliente
+     * @param telefonos Nueva lista de telefonos de contacto del cliente
+     */
+    public void setTelefonos(List<String> telefonos) {
+        this.telefonos = telefonos;
+    }
     /**
      * Obtiene la Empresa Prestadora de Salud a la cual esta afiliado el cliente
      * @return Empresa Prestadora de Salud a la cual esta afiliado el cliente
