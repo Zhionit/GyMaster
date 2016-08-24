@@ -11,71 +11,81 @@
     </h:head>
     <h:body>
         
-        <h:outputLabel value="Bienvenido a GyMaster, su entrenador persona!"/>
+        <h:outputLabel class="jumbotron" value="Bienvenido a GyMaster, su entrenador persona!"/>
         <br/>
         <br/>
         
-        <h:form>
-            
-            <h:panelGrid columns="3">
-                <h:outputLabel value="Identificación: " />
-                <h:inputText id="identificacionTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="identificacionTxt" style="color: red"/>
-                
-                <h:outputLabel value="Nombre: " />
-                <h:inputText id="nombreTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="nombreTxt" style="color: red"/>
-                
-                <h:outputLabel value="Apellido: " />
-                <h:inputText id="apellidoTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="apellidoTxt" style="color: red"/>
-                
-                <h:outputLabel value="Genero: " />
-                <h:selectOneMenu id="generoLstBx">
-                    <f:selectItem itemValue="f" itemLabel="Femenino" />
-                    <f:selectItem itemValue="m" itemLabel="Masculino" />
-                </h:selectOneMenu>
-                <br/>
-                
-                <h:outputLabel value="Dirección: " />
-                <h:inputText id="direccionTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="direccionTxt" style="color: red"/>
-                
-                <h:outputLabel value="Teléfono de contacto: " />
-                <h:inputText id="telefonoTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="telefonoTxt" style="color: red"/>
-                
-                <h:outputLabel value="Eps: " />
-                <h:selectOneMenu id="epsLstBx">
-                    <f:selectItem itemValue="cafeSalud" itemLabel="Cafesalud" />
-                    <f:selectItem itemValue="saludTotal" itemLabel="Salud Total" />
-                    <f:selectItem itemValue="nuevaEps" itemLabel="NuevaEPS" />
-                </h:selectOneMenu>
-                <br/>
-                
-                <h:outputLabel value="Tipo de sangre: " />
-                <h:selectOneMenu id="tipoSangreLstBx">
-                    <f:selectItem itemValue="A" itemLabel="A" />
-                    <f:selectItem itemValue="B" itemLabel="B" />
-                    <f:selectItem itemValue="AB" itemLabel="AB" />
-                    <f:selectItem itemValue="O" itemLabel="O" />
-                </h:selectOneMenu>
-                <h:selectOneMenu id="RHLstBx" >
-                    <f:selectItem itemValue="+" itemLabel="Positivo" />
-                    <f:selectItem itemValue="-" itemLabel="Negativo" />
-                </h:selectOneMenu>
-                
-                <h:outputLabel value="Fecha nacimiento" />
-                <h:inputText id="nacimientoTxt" value="ojo" required="false" label=" Requerido"/>
-                <h:messages for="nacimientoTxt" style="color: red"/>
-                
-            </h:panelGrid>
-            
-            <!--<h:commandButton actionListener="" value="Registrar" />-->
-            <h:commandButton action="registrarEPS.xhtml" value="Navegar" />
-            
-        </h:form>
-            
+        <b:container >
+            <b:row>
+                <h:form>
+                    <b:panelGrid columns="3">
+                        <b:column medium-screen="2">
+                            <h:outputLabel value="Identificación: " />
+                        </b:column>
+                        <b:column medium-screen="6">
+                            <b:inputText placeholder="1234567890" id="identificacionTxt" required="false" />
+                        </b:column>
+                        <b:column medium-screen="2">
+                            <h:messages for="identificacionTxt" style="color: red"/>
+                        </b:column>
+                        
+
+                        <h:outputLabel value="Nombre: " />
+                        <b:inputText placeholder="Pepito" id="nombreTxt" required="false" />
+                        <h:messages for="nombreTxt" style="color: red"/>
+
+                        <h:outputLabel value="Apellido: " />
+                        <b:inputText placeholder="Perez" id="apellidoTxt" required="false" />
+                        <h:messages for="apellidoTxt" style="color: red"/>
+
+                        <h:outputLabel value="Genero: " />
+                        <b:selectOneMenu id="generoLstBx">
+                            <f:selectItem itemValue="f" itemLabel="Femenino" />
+                            <f:selectItem itemValue="m" itemLabel="Masculino" />
+                        </b:selectOneMenu>
+                        <br/>
+
+                        <h:outputLabel value="Dirección: " />
+                        <b:inputText placeholder="Calle falsa 123" id="direccionTxt" required="false" />
+                        <h:messages for="direccionTxt" style="color: red"/>
+
+                        <h:outputLabel value="Teléfono de contacto: " />
+                        <b:inputText placeholder="123456" id="telefonoTxt" required="false" />
+                        <h:messages for="telefonoTxt" style="color: red"/>
+
+                        <h:outputLabel value="Eps: " />
+                        <b:selectOneMenu id="epsLstBx">
+                            <f:selectItem itemValue="cafeSalud" itemLabel="Cafesalud" />
+                            <f:selectItem itemValue="saludTotal" itemLabel="Salud Total" />
+                            <f:selectItem itemValue="nuevaEps" itemLabel="NuevaEPS" />
+                        </b:selectOneMenu>
+                        <br/>
+
+                        <h:outputLabel value="Tipo de sangre: " />
+                        <b:selectOneMenu id="tipoSangreLstBx">
+                            <f:selectItem itemValue="A" itemLabel="A" />
+                            <f:selectItem itemValue="B" itemLabel="B" />
+                            <f:selectItem itemValue="AB" itemLabel="AB" />
+                            <f:selectItem itemValue="O" itemLabel="O" />
+                        </b:selectOneMenu>
+                        <b:selectOneMenu id="RHLstBx" >
+                            <f:selectItem itemValue="+" itemLabel="Positivo" />
+                            <f:selectItem itemValue="-" itemLabel="Negativo" />
+                        </b:selectOneMenu>
+
+                        <h:outputLabel value="Fecha nacimiento" />
+                        <b:dateTimePicker show-time="false" show-date="true" placeholder="1-1-2000" 
+                                          showButtonPanel="true" showClearButton="true" 
+                                          show-close-button="true"/>
+
+                    </b:panelGrid>
+
+                    <!--<h:commandButton actionListener="" value="Registrar" />-->
+                    <b:commandButton look="primary" action="registrarEPS.xhtml" value="Navegar" />
+
+                </h:form>
+            </b:row>
+        </b:container>
         
     </h:body>
 </html>
