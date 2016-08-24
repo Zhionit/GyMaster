@@ -1,12 +1,62 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--@author Marlon Ramirez - @Zhionit -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>GyMaster</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:outputLabel value="Bienvenido a GyMaster, su entrenador persona!"/>
+            <br/>
+            <br/>
+        <h:form>
+          
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Identificación" />
+                <h:inputText id="identificacionTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="identificacionTxt" style="color: red"/>
+                
+                <h:outputLabel value="Nombre" />
+                <h:inputText id="nombreTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="nombreTxt" style="color: red"/>
+                
+                <h:outputLabel value="Apellido" />
+                <h:inputText id="apellidoTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="apellidoTxt" style="color: red"/>
+                
+                <h:outputLabel value="Genero" />
+                <h:inputText id="generoTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="generoTxt" style="color: red"/>
+                
+                <h:outputLabel value="Dirección" />
+                <h:inputText id="direccionTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="direccionTxt" style="color: red"/>
+                
+                <h:outputLabel value="Teléfono de contacto" />
+                <h:inputText id="telefonoTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="telefonoTxt" style="color: red"/>
+                
+                <h:outputLabel value="Eps" />
+                <h:inputText id="epsTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="epsTxt" style="color: red"/>
+                
+                <h:outputLabel value="Tipo de sangre + RH" />
+                <h:inputText id="sangreYRhTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="sangreYRhTxt" style="color: red"/>
+                
+                
+                <h:outputLabel value="Fecha nacimiento" />
+                <h:inputText id="nacimientoTxt" value="" required="true" label=" Requerido"/>
+                <h:messages for="nacimientoTxt" style="color: red"/>
+                
+            </h:panelGrid>
+            
+            <!--<h:commandButton actionListener="" value="Registrar" />-->
+            
+        </h:form>
+        
     </h:body>
 </html>
 
