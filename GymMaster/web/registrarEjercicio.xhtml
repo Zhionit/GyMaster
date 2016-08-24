@@ -34,7 +34,8 @@ and open the template in the editor.
                 </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
-        <div>Formulario de registro de un ejercicio</div>
+        
+        <h:outputLabel style="font-size: 20px" value="Formulario para registrar un nuevo ejercicio"/>
         <br/>
         <br/>
         
@@ -44,24 +45,32 @@ and open the template in the editor.
                     <!--Por si se necesita un campo para la identificación-->
                     
                     <h:outputLabel value="Identificación del usuario  :" />
-                    <b:inputText id="identificacionUsuarioTxt" placeholder="123456789" required="true"/>
-                    <h:messages for="identificacionUsuarioTxt" style="color: red"/>
+                    <b:inputText id="identificacionUsuarioTxt" placeholder="123456789" required="true">
+                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                    </b:inputText>
+                    <b:messages for="identificacionUsuarioTxt" style="color: red"/>
 
                     <h:outputLabel value="Nombre ejercicio  :" />
-                    <b:inputText id="nombreTxt" placeholder="Push-ups" required="true" />
-                    <h:messages for="nombreTxt" style="color: red"/>
+                    <b:inputText id="nombreTxt" placeholder="Push-ups" required="true" >
+                            <f:validateRegex pattern="/^[a-zA-Z]+$/"/>
+                    </b:inputText>
+                    <b:messages for="nombreTxt" style="color: red"/>
                     
                     <h:outputLabel value="Series   :" />
                     <b:inputText id="seriesTxt" placeholder="5 Series" required="true" />
-                    <h:messages for="seriesTxt" style="color: red"/>
+                    <b:messages for="seriesTxt" style="color: red"/>
                     
                     <h:outputLabel value="Repeticiones   :" />
-                    <b:inputText id="repeticionesTxt" placeholder="5 Repeticiones" required="true" />
-                    <h:messages for="repeticionesTxt" style="color: red"/>
+                    <b:inputText id="repeticionesTxt" placeholder="5 Repeticiones" required="true" >
+                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                    </b:inputText>
+                    <b:messages for="repeticionesTxt" style="color: red"/>
                     
                     <h:outputLabel value="Peso   :" />
-                    <b:inputText id="pesoTxt" placeholder="5 Kg" required="true" />
-                    <h:messages for="pesoTxt" style="color: red"/>
+                    <b:inputText id="pesoTxt" placeholder="5 Kg" required="true" >
+                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                    </b:inputText>
+                    <b:messages for="pesoTxt" style="color: red"/>
                     
                     <h:outputLabel value="Día   :" />
                     <b:selectOneMenu id="tipoSangreLstBx">
@@ -76,7 +85,7 @@ and open the template in the editor.
 
                     <!--<h:commandButton actionListener="" value="Registrar" />-->
                 </h:panelGrid>
-            <b:commandButton look="primary" action="clientes.xhtml" value="Registrar" />
+                <b:commandButton look="primary" action="clientes.xhtml" value="Registrar" />
             </h:form>
             
         </b:container>
