@@ -31,7 +31,7 @@
                 </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
-        <div>Formulario de registro de una EPS Nueva</div>
+        <h:outputLabel style="font-size: 20px" value="Formulario para registrar una EPS Nueva"/>
         <br/>
         <br/>
         
@@ -45,12 +45,14 @@
                 <h:messages for="identificacionTxt" style="color: red"/>-->
                 
                 <h:outputLabel value="Nombre" />
-                <h:inputText id="nombreTxt" value="" required="true" label=" Requerido"/>
-                <h:messages for="nombreTxt" style="color: red"/>
-                
-                <!--<h:commandButton actionListener="" value="Registrar" />-->
+                <b:inputText id="nombreTxt" value="" required="true" >
+                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                </b:inputText>
+                <b:messages for="nombreTxt" style="color: red"/>
                 
             </h:panelGrid>
+            <!--<h:commandButton actionListener="" value="Registrar" />-->
+            <b:commandButton look="primary" value="SIN ACTIONLISTENER" />
         </h:form>
         
     </h:body>
