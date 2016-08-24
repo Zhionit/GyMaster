@@ -14,20 +14,24 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div>TODO write content</div>
-        <b:navBar brand="Brand" brandHref="#" inverse="true">
+        <b:navBar brand="GyMaster" brandHref="#" inverse="true">
             <b:navbarLinks>
+                <b:navLink value=" "></b:navLink>
+                <b:navLink value=" "></b:navLink>
+                
                 <b:dropMenu value="Clientes">
-                    <b:navLink value="Agregar" href="index.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="clientes.xhtml"></b:navLink>
+                    <b:navLink value="Agregar" href="faces/registrarCliente.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="#"></b:navLink>
                 </b:dropMenu>
+                <b:navLink value=" "></b:navLink>
                 <b:dropMenu value="Eps">
-                    <b:navLink value="Agregar" href="registrarEPS.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="eps.xhtml"></b:navLink>
+                    <b:navLink value="Agregar" href="faces/registrarEPS.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="faces/eps.xhtml"></b:navLink>
                 </b:dropMenu>
+                <b:navLink value=" "></b:navLink>
                 <b:dropMenu value="Ejercicios">
-                    <b:navLink value="Agregar" href="registrarEjercicio.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="ejercicios.xhtml"></b:navLink>
+                    <b:navLink value="Agregar" href="faces/registrarEjercicio.xhtml"></b:navLink>
+                    <b:navLink value="Mostrar" href="faces/ejercicios.xhtml"></b:navLink>
                 </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
