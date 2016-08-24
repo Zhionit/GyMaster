@@ -14,6 +14,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -91,11 +93,20 @@ public class PersistenciaCliente {
         
     }
     
-    public static void main (String[] args){
-        List<Cliente> clientes = new ArrayList<Cliente>();
-        PersistenciaCliente p = new PersistenciaCliente();
-        p.cargarClientes(clientes);
-        System.out.println(clientes.get(0).getNombre());
+    public void cargarServicios(Cliente cliente){
+        List<Servicio> servicios = cliente.getServicios();
+        
+        try {
+            Statement serviceQueryStatement = con.createStatement();
+            ResultSet serviceQueryResultSet = serviceQueryStatement.executeQuery("SELECT ID, DESCRIPCION FROM SERVICIO WHERE CLIENTE = '" + cliente.getId() + "'");
+            Servicio servicio;
+            while(serviceQueryResultSet.next()){
+                servicio = new Servicio(serviceQueryResultSet.getString("ID"), serviceQueryResultSet.getString("DESCRIPCION"));
+                servicios.add(servicio);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL exception occured" + e);
+        }
     }
-
+    
 }
