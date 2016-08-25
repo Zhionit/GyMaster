@@ -229,16 +229,31 @@ public class Cliente {
      * Obtiene la rutina que debe seguir el cliente
      * @return Rutina a seguir
      */
-    public Rutina[] getRutina() {
+    public Rutina[] getRutinas() {
         return rutinas;
     }
     /**
      * Modifica la rutina que debe seguir el cliente
      * @param rutina Nueva rutina
      */
-    public void setRutina(Rutina[] rutina) {
+    public void setRutinas(Rutina[] rutina) {
         this.rutinas = rutina;
     }
 
+    
+    
+    
+    /**
+     * Este metodo inicializa las rutinas
+     * Usualmente se llamará este método antes
+     * de cargar las rutinas y ejercicios de la base de datos
+     */
+    public void inicializarRutinas(){
+         for(int i = 0; i < rutinas.length; i++){
+            rutinas[i] = new Rutina("Día " + (i+1));
+        }
+    }
+    
+    
     
 }

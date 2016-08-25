@@ -35,6 +35,11 @@ public class ConexionBaseDatos {
 
     private Connection connection;
 
+    /**
+     * Crea la conexión a la base de datos, la instancia creada por este método
+     * estará lista para atender todas las necesidades de persistencia en base
+     * de datos
+     */
     public ConexionBaseDatos() {
 
         try {
@@ -46,6 +51,11 @@ public class ConexionBaseDatos {
 
     }
 
+    /**
+     * Carga la lista de clientes del gimnasio a la memoria principal
+     *
+     * @param clientes
+     */
     public void cargarClientes(List<Cliente> clientes) {
 
         try {
@@ -72,14 +82,13 @@ public class ConexionBaseDatos {
                 genero = rs.getBoolean(GENERO);
 
                 // Getting telephone information
-                
                 List<String> telephones = new ArrayList<String>();
                 Statement telephonesQueryStatement = connection.createStatement();
                 ResultSet telephonesQueryResultSet = telephonesQueryStatement.executeQuery("SELECT TELEPHONE FROM TELEPHONE WHERE CLIENT = '" + id + "'");
-                while(telephonesQueryResultSet.next()){
+                while (telephonesQueryResultSet.next()) {
                     telephones.add(telephonesQueryResultSet.getString("TELEPHONE"));
                 }
-                
+
                 // Getting EPS information
                 epsId = rs.getInt(EPS);
                 Statement epsQueryStatment = connection.createStatement();
@@ -100,6 +109,11 @@ public class ConexionBaseDatos {
 
     }
 
+    /**
+     * Carga la lista de servicios de un cliente a la memoria principal
+     *
+     * @param cliente
+     */
     public void cargarServicios(Cliente cliente) {
         List<Servicio> servicios = cliente.getServicios();
 
@@ -116,12 +130,50 @@ public class ConexionBaseDatos {
         }
     }
 
+    /**
+     * Carga la lista de ejercicios de un cliente a la memoria principal
+     * 
+     * @param cliente Cliente a quien se le van a cargar todas las rutinas
+     */
+    public void cargarRutinasYEjercicios(Cliente cliente) {
+        Rutina[] rutinas = cliente.getRutinas();
+       
 
-    
-    
-    public void agregarEjercicio(Cliente cliente, Ejercicio ejercicio, int dia){
         try {
-            
+            Statement exerciseQueryStatement = connection.createStatement();
+            ResultSet exerciseQueryResultSet = exerciseQueryStatement.executeQuery("SELECT DIA, ORDEN_SECUENCIAL, DESCRIPCION, SERIES,"
+                    + " REPETICIONES, PESO FROM EJERCICIO WHERE CLIENTE = '" + cliente.getId() + "'");
+
+            int dia, ordenSecuencial, series, repeticiones, peso;
+            String descripcion;
+            while (exerciseQueryResultSet.next()) {
+                descripcion = exerciseQueryResultSet.getString("DESCRIPCION");
+                dia = exerciseQueryResultSet.getInt("DIA");
+                ordenSecuencial = exerciseQueryResultSet.getInt("ORDEN_SECUENCIAL");
+                series = exerciseQueryResultSet.getInt("SERIES");
+                repeticiones = exerciseQueryResultSet.getInt("REPETICIONES");
+                peso = exerciseQueryResultSet.getInt("PESO");
+                
+                rutinas[dia-1].getEjercicios().add(new Ejercicio(descripcion, ordenSecuencial, series, repeticiones, peso));
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("SQL exception occured:" + e);
+        }
+    }
+
+    /**
+     * Agrega un ejercicio presente en memoria principal a la base de datos
+     *
+     * @param cliente Cliente a quien se le asignó el ejercicio
+     * @param ejercicio Ejercicio asignado
+     * @param dia Día de la semana a la cual pertenece la rutina en la cual esta
+     * presente el ejercicio
+     */
+    public void agregarEjercicio(Cliente cliente, Ejercicio ejercicio, int dia) {
+        try {
+
             String insertExerciseStatement = "INSERT INTO EJERCICIO "
                     + "VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertExerciseStatement);
@@ -132,18 +184,18 @@ public class ConexionBaseDatos {
             preparedStatement.setString(4, ejercicio.getDescripcion());
             preparedStatement.setInt(5, ejercicio.getSeries());
             preparedStatement.setInt(6, ejercicio.getRepeticiones());
-            if(ejercicio.getPeso() == -1)
+            if (ejercicio.getPeso() == 0) {
                 preparedStatement.setNull(7, Types.INTEGER);
-            else
+            } else {
                 preparedStatement.setInt(7, ejercicio.getPeso());
+            }
             // Insert
             preparedStatement.executeUpdate();
-            
-            
+
         } catch (SQLException e) {
             System.out.println("SQL exception occured:" + e);
         }
-        
+
     }
 
 }
