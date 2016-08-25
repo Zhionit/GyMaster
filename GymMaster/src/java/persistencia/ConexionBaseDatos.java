@@ -8,9 +8,11 @@ package persistencia;
 import gym.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,17 +115,35 @@ public class ConexionBaseDatos {
             System.out.println("SQL exception occured:" + e);
         }
     }
+
+
     
-    public int agregarEjercicio(Ejercicio ejercicio, Cliente cliente){
+    
+    public void agregarEjercicio(Cliente cliente, Ejercicio ejercicio, int dia){
         try {
-            Statement inserExerciseStatement = connection.createStatement();
+            
+            String insertExerciseStatement = "INSERT INTO EJERCICIO "
+                    + "VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(insertExerciseStatement);
+            //Setting parameters
+            preparedStatement.setString(1, cliente.getId());
+            preparedStatement.setInt(2, dia);
+            preparedStatement.setInt(3, ejercicio.getOrdenSecuencial());
+            preparedStatement.setString(4, ejercicio.getDescripcion());
+            preparedStatement.setInt(5, ejercicio.getSeries());
+            preparedStatement.setInt(6, ejercicio.getRepeticiones());
+            if(ejercicio.getPeso() == -1)
+                preparedStatement.setNull(7, Types.INTEGER);
+            else
+                preparedStatement.setInt(7, ejercicio.getPeso());
+            // Insert
+            preparedStatement.executeUpdate();
             
             
         } catch (SQLException e) {
             System.out.println("SQL exception occured:" + e);
         }
         
-        return -1;
     }
 
 }
