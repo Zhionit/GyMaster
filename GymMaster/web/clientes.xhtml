@@ -66,7 +66,11 @@ and open the template in the editor.
             </h:column>
             <h:column>    				
                 <f:facet name="header">Opciones</f:facet>    				
-                <b:button value="Eliminar" onclick="faces/index.xhtml"/>
+                <h:commandButton value="Borrar" 
+                  action="#{userData.deleteEmployee}">                
+                  <f:setPropertyActionListener 
+                     target="#{userData.employee}" value="#{employee}" />
+               </h:commandButton>
             </h:column>
         </b:dataTable>
         
