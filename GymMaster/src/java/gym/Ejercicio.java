@@ -30,6 +30,7 @@ public class Ejercicio {
 
     /**
      * Crea una nueva instancia de Ejercicio
+     *
      * @param descripcion Nombre del ejercicio
      * @param ordenSecuencial Orden secuencial del ejercicio en la rutina
      * @param series Número de series a realizar
@@ -42,6 +43,14 @@ public class Ejercicio {
         this.series = series;
         this.repeticiones = repeticiones;
         this.peso = peso;
+    }
+
+    /**
+     * Crea una instancia con valores por defecto Para su uso y manipulación con
+     * el bean
+     */
+    public Ejercicio() {
+
     }
 
     /**
@@ -61,20 +70,22 @@ public class Ejercicio {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
     /**
      * Obtiene el orden secuencial del ejercicio en la rutina
+     *
      * @return Orden Secuencial
      */
-    public int getOrdenSecuencial(){
+    public int getOrdenSecuencial() {
         return ordenSecuencial;
     }
-    
+
     /**
      * Modifica el orden secuencial del ejercicio
+     *
      * @param ordenSecuencial Nuevo orden
      */
-    public void setOrdenSecuencial(int ordenSecuencial){
+    public void setOrdenSecuencial(int ordenSecuencial) {
         this.ordenSecuencial = ordenSecuencial;
     }
 
