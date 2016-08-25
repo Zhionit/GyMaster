@@ -29,6 +29,14 @@ public class EPS {
     }
     
     /**
+     * Crea una instancia con valores por defecto
+     * Para su uso y manipulación con el bean
+     */
+    public EPS(){
+        
+    }
+    
+    /**
      * Obtiene el identificador de la EPS
      * @return Identificador
      */
