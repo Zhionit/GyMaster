@@ -112,7 +112,7 @@ public class ConexionBaseDatos {
     /**
      * Carga la lista de servicios de un cliente a la memoria principal
      *
-     * @param cliente
+     * @param cliente Cliente al cual se le cargaran los servicios
      */
     public void cargarServicios(Cliente cliente) {
         List<Servicio> servicios = cliente.getServicios();
@@ -196,6 +196,67 @@ public class ConexionBaseDatos {
             System.out.println("SQL exception occured:" + e);
         }
 
+    }
+    
+    /**
+     * Obtiene una lista de fechas en las que se han
+     * tomado medidas del cliente
+     * @param cliente Cliente de quien se han tomado medidas
+     * @return Lista de fechas
+     */
+    public List<Date> obtenerFechasHistoricoMedidasCorporales(Cliente cliente){
+        List<Date> fechas = new ArrayList<Date>();
+        try {
+            String sql = "SELECT * FROM MEDIDAS_CORPORALES "
+                    + "WHERE CLIENTE = '" + cliente.getId() + "' "
+                    + "ORDER BY FECHA_REGISTRO DESC";
+            Statement bodyMeasurementsQuery = connection.createStatement();
+            ResultSet bodyMeasurementsResultSet = bodyMeasurementsQuery.executeQuery(sql);
+            while(bodyMeasurementsResultSet.next()){
+                fechas.add(bodyMeasurementsResultSet.getDate("FECHA_REGISTRO"));
+            }
+        } catch (Exception e) {
+            System.out.println("SQL exception occured:" + e);
+        }
+        return fechas;
+    }
+    /**
+     * Este metodo carga las medidas corporales de un cliente dada la fecha
+     * en que se tomaron
+     * @param cliente Cliente de quien se cargan las medidas
+     * @param fechaRegistro Fecha en la que se registraron las medidas
+     */
+    public void cargarMedidasCorporales(Cliente cliente, Date fechaRegistro){
+        MedidasCorporales medidasCorporales = new MedidasCorporales();
+        try {
+            String sql = "SELECT * FROM MEDIDAS_CORPORALES "
+                    + "WHERE CLIENTE = '" + cliente.getId() + "' AND "
+                    + "FECHA_REGISTRO = '" + fechaRegistro.getYear() + "-" + fechaRegistro.getMonth() + "-" + fechaRegistro.getDate() + "'";
+            Statement bodyMeasurementsQuery = connection.createStatement();
+            ResultSet bodyMeasurementsResultSet = bodyMeasurementsQuery.executeQuery(sql);
+            if(bodyMeasurementsResultSet.next()){
+                medidasCorporales.setPeso(bodyMeasurementsResultSet.getDouble("PESO"));
+                medidasCorporales.setEstatura(bodyMeasurementsResultSet.getDouble("ESTATURA"));
+                medidasCorporales.setCintura(bodyMeasurementsResultSet.getDouble("CINTURA"));
+                medidasCorporales.setCadera(bodyMeasurementsResultSet.getDouble("CADERA"));
+                medidasCorporales.setPiernaI(bodyMeasurementsResultSet.getDouble("PIERNA_I"));
+                medidasCorporales.setPiernaD(bodyMeasurementsResultSet.getDouble("PIERNA_D"));
+                medidasCorporales.setBrazoI(bodyMeasurementsResultSet.getDouble("BRAZO_I"));
+                medidasCorporales.setBrazoD(bodyMeasurementsResultSet.getDouble("BRAZO_D"));
+                medidasCorporales.setGluteoI(bodyMeasurementsResultSet.getDouble("GLUTEO_I"));
+                medidasCorporales.setGluteoD(bodyMeasurementsResultSet.getDouble("GLUTEO_D"));
+                medidasCorporales.setGemeloI(bodyMeasurementsResultSet.getDouble("GEMELO_I"));
+                medidasCorporales.setGemeloD(bodyMeasurementsResultSet.getDouble("GEMELO_D"));
+                medidasCorporales.setCuello(bodyMeasurementsResultSet.getDouble("CUELLO"));
+                medidasCorporales.setHombroI(bodyMeasurementsResultSet.getDouble("HOMBRO_I"));
+                medidasCorporales.setHombroD(bodyMeasurementsResultSet.getDouble("HOMBRO_D"));
+                medidasCorporales.setEspalda(bodyMeasurementsResultSet.getDouble("ESPALDA"));
+            }
+            cliente.setMedidasCorporales(medidasCorporales);
+        } catch (Exception e) {
+            System.out.println("SQL exception occured:" + e);
+        }
+        
     }
 
 }

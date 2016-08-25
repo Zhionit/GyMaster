@@ -20,11 +20,12 @@ public class MedidasCorporales {
 
     /**
      * Crea una nueva instancia de las medidas corporales con todas las medidas
-     * en valor -1 para indicar que no han sido registradas
+     * en valor 0 para indicar que no han sido registradas
      */
     public MedidasCorporales(){
+        super();
         peso = estatura = cintura = cadera = piernaI = piernaD = brazoI = brazoD = 
-            gluteoI = gluteoD = gemeloI = gemeloD = cuello = hombroI = hombroD = espalda = -1;
+            gluteoI = gluteoD = gemeloI = gemeloD = cuello = hombroI = hombroD = espalda = 0;
     }
 
     /**
