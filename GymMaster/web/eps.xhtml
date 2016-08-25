@@ -41,8 +41,20 @@ and open the template in the editor.
         </b:navBar>
         
         <b:dataTable rendered="true">
-            <b:dataTableColumn label="Identificación"/>
-            <b:dataTableColumn label="Nombre"/>
+            <h:column>    				
+                <f:facet name="header">Identificación</f:facet>    				
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Nombre</f:facet>    				
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Opciones</f:facet>    				
+                <h:commandButton value="Borrar" 
+                  action="#{userData.deleteEmployee}">                
+                  <f:setPropertyActionListener 
+                     target="#{userData.employee}" value="#{employee}" />
+               </h:commandButton>
+            </h:column>
         </b:dataTable>
     </h:body>
 </html>
