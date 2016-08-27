@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistencia;
 
 import gym.*;
@@ -20,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Esta clase se encarga de manejar la persistencia de datos a la base de datos
  *
  * @author Michael
  */
@@ -35,6 +31,9 @@ public class ConexionBaseDatos {
     private static final String RH = "RH";
     private static final String EPS = "EPS";
 
+    /**
+     * Conexión con la base de datos
+     */
     private Connection connection;
 
     /**
@@ -50,7 +49,7 @@ public class ConexionBaseDatos {
                     "GYM");
         } catch (ClassNotFoundException e) {
             System.err.println("Class not found " + e);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println("Error while connecting to the Database: " + e);
         }
         System.out.println("Database connection successfuly stablished");
@@ -65,7 +64,7 @@ public class ConexionBaseDatos {
     public void cargarClientes(List<Cliente> clientes) {
 
         try {
-            
+
             String sqlStatement = "SELECT * FROM CLIENTE";
             Statement statementt = connection.createStatement();
             ResultSet resultSet = statementt.executeQuery(sqlStatement);
@@ -116,12 +115,13 @@ public class ConexionBaseDatos {
         }
 
     }
-    
+
     /**
      * Registra un nuevo cliente
+     *
      * @param cliente Cliente a registrar
      */
-    public void registrarCliente(Cliente cliente){
+    public void registrarCliente(Cliente cliente) {
         try {
             String sqlClientInsert = "INSERT INTO CLIENTE VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement clientInsertStatement = connection.prepareStatement(sqlClientInsert);
@@ -134,23 +134,24 @@ public class ConexionBaseDatos {
             clientInsertStatement.setShort(7, cliente.getTipoSangre().getTipo());
             clientInsertStatement.setBoolean(8, cliente.getTipoSangre().getRh());
             clientInsertStatement.setInt(9, cliente.getEPS().getId());
-            
-            for(String telefono : cliente.getTelefonos()){
+
+            for (String telefono : cliente.getTelefonos()) {
                 registrarTelefono(cliente, telefono);
             }
         } catch (SQLException e) {
             System.err.println("SQL exception occured:" + e);
         }
     }
-    
+
     /**
      * Agrega un telefono a la lista de telefonos del cliente
+     *
      * @param cliente Cliente a quien se le agrega el telefono
      * @param telefono Telefono a agregar
      * @return El ID generado para el nuevo telefono
      */
-    public int registrarTelefono(Cliente cliente, String telefono){
-        try{
+    public int registrarTelefono(Cliente cliente, String telefono) {
+        try {
             String sqlStatement = "INSERT INTO TELEFONO (CLIENTE, TELEFONO) VALUES (?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, cliente.getId());
@@ -185,16 +186,17 @@ public class ConexionBaseDatos {
             System.err.println("SQL exception occured:" + e);
         }
     }
-    
+
     /**
      * Registra un nuevo servicio a un cliente
+     *
      * @param cliente Cliente a quien se le registra el nuevo servicio
      * @param servicio Nuevo servicio a registrar
      * @return El ID generado para el nuevo servicio
      */
-    public int registrarServicio(Cliente cliente, Servicio servicio){
-        
-        try{
+    public int registrarServicio(Cliente cliente, Servicio servicio) {
+
+        try {
             String sqlStatement = "INSERT INTO SERVICIO (CLIENTE, DESCRIPCION) VALUES (?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, cliente.getId());
@@ -207,17 +209,14 @@ public class ConexionBaseDatos {
         }
         return 0;
     }
-    
-    
 
     /**
      * Carga la lista de ejercicios de un cliente a la memoria principal
-     * 
+     *
      * @param cliente Cliente a quien se le van a cargar todas las rutinas
      */
     public void cargarRutinasYEjercicios(Cliente cliente) {
         Rutina[] rutinas = cliente.getRutinas();
-       
 
         try {
             String sqlStatement = "SELECT * FROM EJERCICIO WHERE CLIENTE = '" + cliente.getId() + "'";
@@ -233,8 +232,8 @@ public class ConexionBaseDatos {
                 series = exerciseQueryResultSet.getInt("SERIES");
                 repeticiones = exerciseQueryResultSet.getInt("REPETICIONES");
                 peso = exerciseQueryResultSet.getInt("PESO");
-                
-                rutinas[dia-1].getEjercicios().add(new Ejercicio(descripcion, ordenSecuencial, series, repeticiones, peso));
+
+                rutinas[dia - 1].getEjercicios().add(new Ejercicio(descripcion, ordenSecuencial, series, repeticiones, peso));
 
             }
 
@@ -277,14 +276,14 @@ public class ConexionBaseDatos {
         }
 
     }
-    
+
     /**
-     * Obtiene una lista de fechas en las que se han
-     * tomado medidas del cliente
+     * Obtiene una lista de fechas en las que se han tomado medidas del cliente
+     *
      * @param cliente Cliente de quien se han tomado medidas
      * @return Lista de fechas
      */
-    public List<Date> obtenerFechasHistoricoMedidasCorporales(Cliente cliente){
+    public List<Date> obtenerFechasHistoricoMedidasCorporales(Cliente cliente) {
         List<Date> fechas = new ArrayList<Date>();
         try {
             String sql = "SELECT * FROM MEDIDAS_CORPORALES "
@@ -292,7 +291,7 @@ public class ConexionBaseDatos {
                     + "ORDER BY FECHA_REGISTRO DESC";
             Statement bodyMeasurementsQuery = connection.createStatement();
             ResultSet bodyMeasurementsResultSet = bodyMeasurementsQuery.executeQuery(sql);
-            while(bodyMeasurementsResultSet.next()){
+            while (bodyMeasurementsResultSet.next()) {
                 fechas.add(bodyMeasurementsResultSet.getDate("FECHA_REGISTRO"));
             }
         } catch (Exception e) {
@@ -300,13 +299,15 @@ public class ConexionBaseDatos {
         }
         return fechas;
     }
+
     /**
-     * Este metodo carga las medidas corporales de un cliente dada la fecha
-     * en que se tomaron
+     * Este metodo carga las medidas corporales de un cliente dada la fecha en
+     * que se tomaron
+     *
      * @param cliente Cliente de quien se cargan las medidas
      * @param fechaRegistro Fecha en la que se registraron las medidas
      */
-    public void cargarMedidasCorporales(Cliente cliente, Date fechaRegistro){
+    public void cargarMedidasCorporales(Cliente cliente, Date fechaRegistro) {
         MedidasCorporales medidasCorporales = new MedidasCorporales();
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -316,7 +317,7 @@ public class ConexionBaseDatos {
                     + "FECHA_REGISTRO = '" + formattedDate + "'";
             Statement bodyMeasurementsQuery = connection.createStatement();
             ResultSet bodyMeasurementsResultSet = bodyMeasurementsQuery.executeQuery(sql);
-            if(bodyMeasurementsResultSet.next()){
+            if (bodyMeasurementsResultSet.next()) {
                 medidasCorporales.setPeso(bodyMeasurementsResultSet.getDouble("PESO"));
                 medidasCorporales.setEstatura(bodyMeasurementsResultSet.getDouble("ESTATURA"));
                 medidasCorporales.setCintura(bodyMeasurementsResultSet.getDouble("CINTURA"));
@@ -338,17 +339,18 @@ public class ConexionBaseDatos {
         } catch (Exception e) {
             System.err.println("SQL exception occured:" + e);
         }
-        
+
     }
-    
+
     /**
      * Registra las medidas corporales de un cliente con la fecha actual
+     *
      * @param cliente Cliente a quien se le registran las medidas corporales
      */
-    public void registrarMedidasCorporales(Cliente cliente){
+    public void registrarMedidasCorporales(Cliente cliente) {
         MedidasCorporales medidasCorporales = cliente.getMedidasCorporales();
         try {
-            
+
             String sqlStatement = "INSERT INTO MEDIDAS_CORPORALES VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, cliente.getId());
@@ -367,10 +369,27 @@ public class ConexionBaseDatos {
             preparedStatement.setDouble(14, medidasCorporales.getHombroI());
             preparedStatement.setDouble(15, medidasCorporales.getHombroD());
             preparedStatement.setDouble(16, medidasCorporales.getEspalda());
-            
+
             preparedStatement.executeUpdate();
-            
-                        
+
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
+    }
+
+    /**
+     * Carga la lista de Empresas Prestadoras de Salud
+     *
+     * @param lista Lista a la cual se cargarán las EPS
+     */
+    public void cargarListaEPS(List<EPS> lista) {
+        try {
+            String sqlQuery = "SELECT * FROM EPS";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            while (resultSet.next()) {
+                lista.add(new EPS(resultSet.getInt("ID"), resultSet.getString("NOMBRE")));
+            }
         } catch (SQLException e) {
             System.err.println("SQL exception occured:" + e);
         }
@@ -378,11 +397,12 @@ public class ConexionBaseDatos {
 
     /**
      * Agrega una nueva EPS
+     *
      * @param nombre Nombre de la ESP agregada
      * @return ID de la nueva EPS
-     * @throws Exception 
+     * @throws Exception
      */
-    public int registrarEPS(String nombre) throws Exception{
+    public int registrarEPS(String nombre) throws Exception {
         try {
             String sqlStatement = "INSERT INTO EPS (NAME) VALUES (?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
@@ -396,4 +416,3 @@ public class ConexionBaseDatos {
         return 0;
     }
 }
-
