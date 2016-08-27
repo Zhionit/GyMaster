@@ -10,7 +10,7 @@ public class TipoSangre {
     /**
      * Tipo de sangre
      */
-    private byte tipo;
+    private short tipo;
 
     /**
      * Presencia de RH
@@ -23,7 +23,7 @@ public class TipoSangre {
      * @param tipo
      * @param rh
      */
-    public TipoSangre(byte tipo, boolean rh) {
+    public TipoSangre(short tipo, boolean rh) {
         this.tipo = tipo;
         this.rh = rh;
     }
@@ -41,7 +41,7 @@ public class TipoSangre {
      *
      * @return Tipo
      */
-    public byte getTipo() {
+    public short getTipo() {
         return tipo;
     }
 
@@ -50,7 +50,7 @@ public class TipoSangre {
      *
      * @param tipo Nuevo tipo
      */
-    public void setTipo(byte tipo) {
+    public void setTipo(short tipo) {
         this.tipo = tipo;
     }
 

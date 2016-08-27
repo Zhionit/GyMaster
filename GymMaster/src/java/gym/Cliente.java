@@ -1,5 +1,6 @@
 package gym;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +70,8 @@ public class Cliente {
         this.direccion = direccion;
         this.telefonos = telefonos;
         this.eps = eps;
+        
+        this.telefonos = new ArrayList<String>();
     }
 
     /**

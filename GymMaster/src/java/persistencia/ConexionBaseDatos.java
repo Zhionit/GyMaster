@@ -105,7 +105,7 @@ public class ConexionBaseDatos {
                 EPS eps = new EPS(epsId, epsQueryResult.getString("NOMBRE"));
 
                 // Getting Blood type information
-                TipoSangre tipoSange = new TipoSangre(resultSet.getByte(TIPO_SANGRE), resultSet.getBoolean(RH));
+                TipoSangre tipoSange = new TipoSangre(resultSet.getShort(TIPO_SANGRE), resultSet.getBoolean(RH));
 
                 // Constructing Cliente object
                 c = new Cliente(id, nombre, apellido, genero, tipoSange, fechaNacimiento, direccion, telephones, eps);
@@ -115,6 +115,53 @@ public class ConexionBaseDatos {
             System.err.println("SQL exception occured:" + e);
         }
 
+    }
+    
+    /**
+     * Registra un nuevo cliente
+     * @param cliente Cliente a registrar
+     */
+    public void registrarCliente(Cliente cliente){
+        try {
+            String sqlClientInsert = "INSERT INTO CLIENTE VALUES (?,?,?,?,?,?,?,?,?)";
+            PreparedStatement clientInsertStatement = connection.prepareStatement(sqlClientInsert);
+            clientInsertStatement.setString(1, cliente.getId());
+            clientInsertStatement.setString(2, cliente.getNombre());
+            clientInsertStatement.setString(3, cliente.getApellido());
+            clientInsertStatement.setString(4, cliente.getDireccion());
+            clientInsertStatement.setBoolean(5, cliente.getGenero());
+            clientInsertStatement.setDate(6, new java.sql.Date(cliente.getFechaNacimiento().getTime()));
+            clientInsertStatement.setShort(7, cliente.getTipoSangre().getTipo());
+            clientInsertStatement.setBoolean(8, cliente.getTipoSangre().getRh());
+            clientInsertStatement.setInt(9, cliente.getEPS().getId());
+            
+            for(String telefono : cliente.getTelefonos()){
+                registrarTelefono(cliente, telefono);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
+    }
+    
+    /**
+     * Agrega un telefono a la lista de telefonos del cliente
+     * @param cliente Cliente a quien se le agrega el telefono
+     * @param telefono Telefono a agregar
+     * @return El ID generado para el nuevo telefono
+     */
+    public int registrarTelefono(Cliente cliente, String telefono){
+        try{
+            String sqlStatement = "INSERT INTO TELEFONO (CLIENTE, TELEFONO) VALUES (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, cliente.getId());
+            preparedStatement.setString(2, telefono);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            return resultSet.getInt("ID");
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
+        return 0;
     }
 
     /**
@@ -138,6 +185,30 @@ public class ConexionBaseDatos {
             System.err.println("SQL exception occured:" + e);
         }
     }
+    
+    /**
+     * Registra un nuevo servicio a un cliente
+     * @param cliente Cliente a quien se le registra el nuevo servicio
+     * @param servicio Nuevo servicio a registrar
+     * @return El ID generado para el nuevo servicio
+     */
+    public int registrarServicio(Cliente cliente, Servicio servicio){
+        
+        try{
+            String sqlStatement = "INSERT INTO SERVICIO (CLIENTE, DESCRIPCION) VALUES (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, cliente.getId());
+            preparedStatement.setString(2, servicio.getDescripcion());
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            return resultSet.getInt("ID");
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
+        return 0;
+    }
+    
+    
 
     /**
      * Carga la lista de ejercicios de un cliente a la memoria principal
@@ -180,7 +251,7 @@ public class ConexionBaseDatos {
      * @param dia Día de la semana a la cual pertenece la rutina en la cual esta
      * presente el ejercicio
      */
-    public void agregarEjercicio(Cliente cliente, Ejercicio ejercicio, int dia) {
+    public void registrarEjercicio(Cliente cliente, Ejercicio ejercicio, int dia) {
         try {
 
             String sqlStatement = "INSERT INTO EJERCICIO "
@@ -270,6 +341,10 @@ public class ConexionBaseDatos {
         
     }
     
+    /**
+     * Registra las medidas corporales de un cliente con la fecha actual
+     * @param cliente Cliente a quien se le registran las medidas corporales
+     */
     public void registrarMedidasCorporales(Cliente cliente){
         MedidasCorporales medidasCorporales = cliente.getMedidasCorporales();
         try {
@@ -301,5 +376,24 @@ public class ConexionBaseDatos {
         }
     }
 
+    /**
+     * Agrega una nueva EPS
+     * @param nombre Nombre de la ESP agregada
+     * @return ID de la nueva EPS
+     * @throws Exception 
+     */
+    public int registrarEPS(String nombre) throws Exception{
+        try {
+            String sqlStatement = "INSERT INTO EPS (NAME) VALUES (?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, nombre);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            return resultSet.getInt("ID");
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
+        return 0;
+    }
 }
 
