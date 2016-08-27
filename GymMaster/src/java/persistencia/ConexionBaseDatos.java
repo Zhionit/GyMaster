@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,10 +46,14 @@ public class ConexionBaseDatos {
 
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
+            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/GYMASTER", "GYMASTER",
+                    "GYM");
         } catch (ClassNotFoundException e) {
-            System.out.println("Class not found " + e);
+            System.err.println("Class not found " + e);
+        } catch (SQLException e){
+            System.err.println("Error while connecting to the Database: " + e);
         }
-        System.out.println("JDBC Class found");
+        System.out.println("Database connection successfuly stablished");
 
     }
 
@@ -59,14 +65,14 @@ public class ConexionBaseDatos {
     public void cargarClientes(List<Cliente> clientes) {
 
         try {
-            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/GYMASTER", "GYMASTER",
-                    "GYM");
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM CLIENTE");
+            
+            String sqlStatement = "SELECT * FROM CLIENTE";
+            Statement statementt = connection.createStatement();
+            ResultSet resultSet = statementt.executeQuery(sqlStatement);
 
             // Handle the result set
             Cliente c;
-            while (rs.next()) {
+            while (resultSet.next()) {
 
                 String id, nombre, apellido, direccion;
                 int epsId;
@@ -74,37 +80,39 @@ public class ConexionBaseDatos {
                 boolean genero;
 
                 // Getting separate attributes
-                id = rs.getString(ID);
-                nombre = rs.getString(NOMBRE);
-                apellido = rs.getString(APELLIDO);
-                direccion = rs.getString(DIRECCION);
-                fechaNacimiento = rs.getDate(FECHA_NACIMIENTO);
-                genero = rs.getBoolean(GENERO);
+                id = resultSet.getString(ID);
+                nombre = resultSet.getString(NOMBRE);
+                apellido = resultSet.getString(APELLIDO);
+                direccion = resultSet.getString(DIRECCION);
+                fechaNacimiento = resultSet.getDate(FECHA_NACIMIENTO);
+                genero = resultSet.getBoolean(GENERO);
 
                 // Getting telephone information
                 List<String> telephones = new ArrayList<String>();
+                String telephoneSqlStatement = "SELECT TELEPHONE FROM TELEPHONE WHERE CLIENT = '" + id + "'";
                 Statement telephonesQueryStatement = connection.createStatement();
-                ResultSet telephonesQueryResultSet = telephonesQueryStatement.executeQuery("SELECT TELEPHONE FROM TELEPHONE WHERE CLIENT = '" + id + "'");
+                ResultSet telephonesQueryResultSet = telephonesQueryStatement.executeQuery(telephoneSqlStatement);
                 while (telephonesQueryResultSet.next()) {
                     telephones.add(telephonesQueryResultSet.getString("TELEPHONE"));
                 }
 
                 // Getting EPS information
-                epsId = rs.getInt(EPS);
+                epsId = resultSet.getInt(EPS);
+                String epsSqlStatement = "SELECT NOMBRE FROM EPS WHERE ID = '" + epsId + "'";
                 Statement epsQueryStatment = connection.createStatement();
-                ResultSet epsQueryResult = epsQueryStatment.executeQuery("SELECT NOMBRE FROM EPS WHERE ID = '" + epsId + "'");
+                ResultSet epsQueryResult = epsQueryStatment.executeQuery(epsSqlStatement);
                 epsQueryResult.next();
                 EPS eps = new EPS(epsId, epsQueryResult.getString("NOMBRE"));
 
                 // Getting Blood type information
-                TipoSangre tipoSange = new TipoSangre(rs.getByte(TIPO_SANGRE), rs.getBoolean(RH));
+                TipoSangre tipoSange = new TipoSangre(resultSet.getByte(TIPO_SANGRE), resultSet.getBoolean(RH));
 
                 // Constructing Cliente object
                 c = new Cliente(id, nombre, apellido, genero, tipoSange, fechaNacimiento, direccion, telephones, eps);
                 clientes.add(c);
             }
         } catch (SQLException e) {
-            System.out.println("SQL exception occured:" + e);
+            System.err.println("SQL exception occured:" + e);
         }
 
     }
@@ -118,15 +126,16 @@ public class ConexionBaseDatos {
         List<Servicio> servicios = cliente.getServicios();
 
         try {
+            String sqlStatement = "SELECT ID, DESCRIPCION FROM SERVICIO WHERE CLIENTE = '" + cliente.getId() + "'";
             Statement serviceQueryStatement = connection.createStatement();
-            ResultSet serviceQueryResultSet = serviceQueryStatement.executeQuery("SELECT ID, DESCRIPCION FROM SERVICIO WHERE CLIENTE = '" + cliente.getId() + "'");
+            ResultSet serviceQueryResultSet = serviceQueryStatement.executeQuery(sqlStatement);
             Servicio servicio;
             while (serviceQueryResultSet.next()) {
                 servicio = new Servicio(serviceQueryResultSet.getInt("ID"), serviceQueryResultSet.getString("DESCRIPCION"));
                 servicios.add(servicio);
             }
         } catch (SQLException e) {
-            System.out.println("SQL exception occured:" + e);
+            System.err.println("SQL exception occured:" + e);
         }
     }
 
@@ -140,9 +149,9 @@ public class ConexionBaseDatos {
        
 
         try {
+            String sqlStatement = "SELECT * FROM EJERCICIO WHERE CLIENTE = '" + cliente.getId() + "'";
             Statement exerciseQueryStatement = connection.createStatement();
-            ResultSet exerciseQueryResultSet = exerciseQueryStatement.executeQuery("SELECT DIA, ORDEN_SECUENCIAL, DESCRIPCION, SERIES,"
-                    + " REPETICIONES, PESO FROM EJERCICIO WHERE CLIENTE = '" + cliente.getId() + "'");
+            ResultSet exerciseQueryResultSet = exerciseQueryStatement.executeQuery(sqlStatement);
 
             int dia, ordenSecuencial, series, repeticiones, peso;
             String descripcion;
@@ -159,7 +168,7 @@ public class ConexionBaseDatos {
             }
 
         } catch (SQLException e) {
-            System.out.println("SQL exception occured:" + e);
+            System.err.println("SQL exception occured:" + e);
         }
     }
 
@@ -174,9 +183,9 @@ public class ConexionBaseDatos {
     public void agregarEjercicio(Cliente cliente, Ejercicio ejercicio, int dia) {
         try {
 
-            String insertExerciseStatement = "INSERT INTO EJERCICIO "
-                    + "VALUES (?,?,?,?,?,?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertExerciseStatement);
+            String sqlStatement = "INSERT INTO EJERCICIO "
+                    + "VALUES (?,?,?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             //Setting parameters
             preparedStatement.setString(1, cliente.getId());
             preparedStatement.setInt(2, dia);
@@ -193,7 +202,7 @@ public class ConexionBaseDatos {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("SQL exception occured:" + e);
+            System.err.println("SQL exception occured:" + e);
         }
 
     }
@@ -216,7 +225,7 @@ public class ConexionBaseDatos {
                 fechas.add(bodyMeasurementsResultSet.getDate("FECHA_REGISTRO"));
             }
         } catch (Exception e) {
-            System.out.println("SQL exception occured:" + e);
+            System.err.println("SQL exception occured:" + e);
         }
         return fechas;
     }
@@ -229,9 +238,11 @@ public class ConexionBaseDatos {
     public void cargarMedidasCorporales(Cliente cliente, Date fechaRegistro){
         MedidasCorporales medidasCorporales = new MedidasCorporales();
         try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = simpleDateFormat.format(fechaRegistro);
             String sql = "SELECT * FROM MEDIDAS_CORPORALES "
                     + "WHERE CLIENTE = '" + cliente.getId() + "' AND "
-                    + "FECHA_REGISTRO = '" + fechaRegistro.getYear() + "-" + fechaRegistro.getMonth() + "-" + fechaRegistro.getDate() + "'";
+                    + "FECHA_REGISTRO = '" + formattedDate + "'";
             Statement bodyMeasurementsQuery = connection.createStatement();
             ResultSet bodyMeasurementsResultSet = bodyMeasurementsQuery.executeQuery(sql);
             if(bodyMeasurementsResultSet.next()){
@@ -254,9 +265,41 @@ public class ConexionBaseDatos {
             }
             cliente.setMedidasCorporales(medidasCorporales);
         } catch (Exception e) {
-            System.out.println("SQL exception occured:" + e);
+            System.err.println("SQL exception occured:" + e);
         }
         
     }
+    
+    public void registrarMedidasCorporales(Cliente cliente){
+        MedidasCorporales medidasCorporales = cliente.getMedidasCorporales();
+        try {
+            
+            String sqlStatement = "INSERT INTO MEDIDAS_CORPORALES VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, cliente.getId());
+            preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            preparedStatement.setDouble(3, medidasCorporales.getPeso());
+            preparedStatement.setDouble(4, medidasCorporales.getEstatura());
+            preparedStatement.setDouble(5, medidasCorporales.getCintura());
+            preparedStatement.setDouble(6, medidasCorporales.getCadera());
+            preparedStatement.setDouble(7, medidasCorporales.getPiernaI());
+            preparedStatement.setDouble(8, medidasCorporales.getPiernaD());
+            preparedStatement.setDouble(9, medidasCorporales.getBrazoI());
+            preparedStatement.setDouble(10, medidasCorporales.getBrazoD());
+            preparedStatement.setDouble(11, medidasCorporales.getGluteoI());
+            preparedStatement.setDouble(12, medidasCorporales.getGluteoD());
+            preparedStatement.setDouble(13, medidasCorporales.getCuello());
+            preparedStatement.setDouble(14, medidasCorporales.getHombroI());
+            preparedStatement.setDouble(15, medidasCorporales.getHombroD());
+            preparedStatement.setDouble(16, medidasCorporales.getEspalda());
+            
+            preparedStatement.executeUpdate();
+            
+                        
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
+    }
 
 }
+
