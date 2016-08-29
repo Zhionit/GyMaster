@@ -49,7 +49,7 @@
                         </b:column>
                         <b:column medium-screen="6">
                             <b:inputText placeholder="1234567890" id="identificacionTxt" required="true">
-                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                                <!--<f:validateRegex pattern="/^[0-9]+$/"/>-->
                             </b:inputText>
                         </b:column>
                         <b:column medium-screen="5">
@@ -59,13 +59,13 @@
 
                         <h:outputLabel value="Nombre: " />
                         <b:inputText placeholder="Pepito" id="nombreTxt" required="true">
-                            <f:validateRegex pattern="/^[a-zA-Z]+$/"/>
+                            <!--<f:validateRegex pattern="/^[a-zA-Z]+$/"/>-->
                         </b:inputText>
                         <b:messages for="nombreTxt" style="color: red"/>
 
                         <h:outputLabel value="Apellido: " />
                         <b:inputText placeholder="Perez" id="apellidoTxt" required="true" >
-                            <f:validateRegex pattern="/^[a-zA-Z]+$/"/>
+                            <!--<f:validateRegex pattern="/^[a-zA-Z]+$/"/>-->
                         </b:inputText>
                         <b:messages for="apellidoTxt" style="color: red"/>
 
@@ -78,7 +78,7 @@
 
                         <h:outputLabel value="Dirección: " />
                         <b:inputText placeholder="Calle falsa 123" id="direccionTxt" required="true" >
-                            <f:validateRegex pattern="/^[0-9a-zA-Z]+$/"/>
+                            <!--<f:validateRegex pattern="/^[0-9a-zA-Z]+$/"/>-->
                         </b:inputText>
                         <b:messages for="direccionTxt" style="color: red"/>
 
