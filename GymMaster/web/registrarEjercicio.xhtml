@@ -46,13 +46,13 @@ and open the template in the editor.
                     
                     <h:outputLabel value="Identificación del usuario  :" />
                     <b:inputText id="identificacionUsuarioTxt" placeholder="123456789" required="true">
-                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                                <!--<f:validateRegex pattern="/^[0-9]+$/"/>-->
                     </b:inputText>
                     <b:messages for="identificacionUsuarioTxt" style="color: red"/>
 
                     <h:outputLabel value="Nombre ejercicio  :" />
                     <b:inputText id="nombreTxt" placeholder="Push-ups" required="true" >
-                            <f:validateRegex pattern="/^[a-zA-Z]+$/"/>
+                            <!--<f:validateRegex pattern="/^[a-zA-Z]+$/"/>-->
                     </b:inputText>
                     <b:messages for="nombreTxt" style="color: red"/>
                     
@@ -62,13 +62,13 @@ and open the template in the editor.
                     
                     <h:outputLabel value="Repeticiones   :" />
                     <b:inputText id="repeticionesTxt" placeholder="5 Repeticiones" required="true" >
-                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                                <!--<f:validateRegex pattern="/^[0-9]+$/"/>-->
                     </b:inputText>
                     <b:messages for="repeticionesTxt" style="color: red"/>
                     
                     <h:outputLabel value="Peso   :" />
                     <b:inputText id="pesoTxt" placeholder="5 Kg" required="true" >
-                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                                <!--<f:validateRegex pattern="/^[0-9]+$/"/>-->
                     </b:inputText>
                     <b:messages for="pesoTxt" style="color: red"/>
                     
@@ -85,7 +85,7 @@ and open the template in the editor.
 
                     <!--<h:commandButton actionListener="" value="Registrar" />-->
                 </h:panelGrid>
-                <b:commandButton look="primary" action="clientes.xhtml" value="Registrar" />
+                <b:commandButton look="primary" value="NOT IMPLEMENTED" />
             </h:form>
             
         </b:container>
