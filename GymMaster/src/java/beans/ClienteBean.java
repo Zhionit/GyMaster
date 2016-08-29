@@ -3,6 +3,7 @@ package beans;
 import gym.Cliente;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import persistencia.ConexionBaseDatos;
@@ -12,7 +13,7 @@ import persistencia.ConexionBaseDatos;
  * @author Zhionit
  */
 @Named(value = "clienteBean")
-@Dependent
+@ApplicationScoped
 public class ClienteBean 
 {
     
