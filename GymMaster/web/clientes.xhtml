@@ -10,69 +10,74 @@ and open the template in the editor.
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>GyMaster - Clientes Registrados</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
         <b:navBar brand="GyMaster" brandHref="faces/index.xhtml" inverse="true">
-            <b:navbarLinks>
+                <b:navbarLinks>
                 <b:navLink value=" "></b:navLink>
                 <b:navLink value=" "></b:navLink>
-                
+
                 <b:dropMenu value="Clientes">
-                    <b:navLink value="Agregar" href="faces/registrarCliente.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="#"></b:navLink>
-                </b:dropMenu>
+                                <b:navLink value="Agregar" href="faces/registrarCliente.xhtml"></b:navLink>
+                                <b:navLink value="Mostrar" href="#"></b:navLink>
+                            </b:dropMenu>
                 <b:navLink value=" "></b:navLink>
                 <b:dropMenu value="Eps">
-                    <b:navLink value="Agregar" href="faces/registrarEPS.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="faces/eps.xhtml"></b:navLink>
-                </b:dropMenu>
+                                <b:navLink value="Agregar" href="faces/registrarEPS.xhtml"></b:navLink>
+                                <b:navLink value="Mostrar" href="faces/eps.xhtml"></b:navLink>
+                            </b:dropMenu>
                 <b:navLink value=" "></b:navLink>
                 <b:dropMenu value="Ejercicios">
-                    <b:navLink value="Agregar" href="faces/registrarEjercicio.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="faces/ejercicios.xhtml"></b:navLink>
-                </b:dropMenu>
-            </b:navbarLinks>
+                                <b:navLink value="Agregar" href="faces/registrarEjercicio.xhtml"></b:navLink>
+                                <b:navLink value="Mostrar" href="faces/ejercicios.xhtml"></b:navLink>
+                            </b:dropMenu>
+                    </b:navbarLinks>
         </b:navBar>
-        
-        <b:dataTable rendered="true">
-            <h:column>    				
-                <f:facet name="header">Identificación</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Nombre</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Apellido</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Genero</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Dirección</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Teléfono</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">EPS</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Tipo de sangre + RH</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Fecha de nacimiento</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Opciones</f:facet>    				
-                <h:commandButton value="Borrar" 
-                  action="#{userData.deleteEmployee}">                
-                  <f:setPropertyActionListener 
-                     target="#{userData.employee}" value="#{employee}" />
-               </h:commandButton>
-            </h:column>
-        </b:dataTable>
-        
+        <h:form>
+            <b:dataTable value="#{clienteBean.listaClientes}" var="cliente" rendered="true">
+
+                <b:dataTableColumn label="Identificación">
+                    <h:outputText value="#{cliente.id}"/>
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Nombre">
+                    <h:outputText value="#{cliente.nombre}"/>
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Apellido">
+                    <h:outputText value="#{cliente.apellido}"/>
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Genero">
+                    <h:outputText value="M" rendered="#{cliente.genero}"/>
+                    <h:outputText value="F" rendered="#{!cliente.genero}"/>
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Tipo de sangre + RH">
+                        <h:outputText value="#{cliente.tipoSangre.tipo}"/>
+                        <h:outputText value="#{cliente.tipoSangre.rh}"/>
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Fecha de nacimiento">
+                    <h:outputText value="#{cliente.fechaNacimiento}"/>
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="EPS">
+                    <h:outputText value="#{cliente.EPS.nombre}"/>
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Direccion">
+                    <h:outputText value="#{cliente.direccion}"/>
+                </b:dataTableColumn>
+
+            </b:dataTable>
+            
+            <b:label text="ID Cliente:"/>
+            <b:inputText value="#{clienteBean.cliente.id}" style="max-width: 100px;"/>
+            <b:commandButton value="Borrar" actionListener="#{clienteBean.eliminarCliente()}"/>
+            
+        </h:form>
     </h:body>
 </html>

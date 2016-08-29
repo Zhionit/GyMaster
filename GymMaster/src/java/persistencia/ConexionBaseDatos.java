@@ -88,16 +88,16 @@ public class ConexionBaseDatos {
 
                 // Getting telephone information
                 List<String> telephones = new ArrayList<String>();
-                String telephoneSqlStatement = "SELECT TELEPHONE FROM TELEPHONE WHERE CLIENT = '" + id + "'";
+                String telephoneSqlStatement = "SELECT TELEFONO FROM TELEFONO WHERE CLIENTE = '" + id + "'";
                 Statement telephonesQueryStatement = connection.createStatement();
                 ResultSet telephonesQueryResultSet = telephonesQueryStatement.executeQuery(telephoneSqlStatement);
                 while (telephonesQueryResultSet.next()) {
-                    telephones.add(telephonesQueryResultSet.getString("TELEPHONE"));
+                    telephones.add(telephonesQueryResultSet.getString("TELEFONO"));
                 }
 
                 // Getting EPS information
                 epsId = resultSet.getInt(EPS);
-                String epsSqlStatement = "SELECT NOMBRE FROM EPS WHERE ID = '" + epsId + "'";
+                String epsSqlStatement = "SELECT NOMBRE FROM EPS WHERE ID = " + epsId;
                 Statement epsQueryStatment = connection.createStatement();
                 ResultSet epsQueryResult = epsQueryStatment.executeQuery(epsSqlStatement);
                 epsQueryResult.next();
@@ -142,6 +142,34 @@ public class ConexionBaseDatos {
             System.err.println("SQL exception occured:" + e);
         }
     }
+    
+    public void eliminarCliente(String id){
+        System.out.println("DESDE BASE DE DATOS ELIMINANDO A CLIENTE CON ID: <" + id + ">");
+        try{
+            String sqlStatement = "DELETE FROM TELEFONO WHERE CLIENTE = '" + id + "'";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.executeUpdate();
+            
+            sqlStatement = "DELETE FROM SERVICIO WHERE CLIENTE = '" + id + "'";
+            preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.executeUpdate();
+            
+            sqlStatement = "DELETE FROM MEDIDAS_CORPORALES WHERE CLIENTE = '" + id + "'";
+            preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.executeUpdate();
+            
+            sqlStatement = "DELETE FROM EJERCICIO WHERE CLIENTE = '" + id + "'";
+            preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.executeUpdate();
+            
+            sqlStatement = "DELETE FROM CLIENTE WHERE ID = '" + id + "'";
+            preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
+    }
 
     /**
      * Agrega un telefono a la lista de telefonos del cliente
@@ -153,12 +181,13 @@ public class ConexionBaseDatos {
     public int registrarTelefono(Cliente cliente, String telefono) {
         try {
             String sqlStatement = "INSERT INTO TELEFONO (CLIENTE, TELEFONO) VALUES (?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement, new String[]{"ID"});
             preparedStatement.setString(1, cliente.getId());
             preparedStatement.setString(2, telefono);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            return resultSet.getInt("ID");
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException e) {
             System.err.println("SQL exception occured:" + e);
         }
@@ -198,12 +227,13 @@ public class ConexionBaseDatos {
 
         try {
             String sqlStatement = "INSERT INTO SERVICIO (CLIENTE, DESCRIPCION) VALUES (?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement, new String[]{"ID"});
             preparedStatement.setString(1, cliente.getId());
             preparedStatement.setString(2, servicio.getDescripcion());
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            return resultSet.getInt("ID");
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException e) {
             System.err.println("SQL exception occured:" + e);
         }
@@ -294,7 +324,7 @@ public class ConexionBaseDatos {
             while (bodyMeasurementsResultSet.next()) {
                 fechas.add(bodyMeasurementsResultSet.getDate("FECHA_REGISTRO"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println("SQL exception occured:" + e);
         }
         return fechas;
@@ -336,7 +366,7 @@ public class ConexionBaseDatos {
                 medidasCorporales.setEspalda(bodyMeasurementsResultSet.getDouble("ESPALDA"));
             }
             cliente.setMedidasCorporales(medidasCorporales);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println("SQL exception occured:" + e);
         }
 
@@ -383,6 +413,7 @@ public class ConexionBaseDatos {
      * @param lista Lista a la cual se cargarán las EPS
      */
     public void cargarListaEPS(List<EPS> lista) {
+        
         try {
             String sqlQuery = "SELECT * FROM EPS";
             Statement statement = connection.createStatement();
@@ -400,19 +431,30 @@ public class ConexionBaseDatos {
      *
      * @param nombre Nombre de la ESP agregada
      * @return ID de la nueva EPS
-     * @throws Exception
      */
-    public int registrarEPS(String nombre) throws Exception {
+    public int registrarEPS(String nombre){
+        System.out.println(connection);
         try {
-            String sqlStatement = "INSERT INTO EPS (NAME) VALUES (?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            String sqlStatement = "INSERT INTO EPS (NOMBRE) VALUES (?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement, new String[]{"ID"});
             preparedStatement.setString(1, nombre);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            return resultSet.getInt("ID");
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException e) {
             System.err.println("SQL exception occured:" + e);
         }
         return 0;
+    }
+    
+    public void eliminarEPS(int id){
+        try{
+            String sqlStatement = "DELETE FROM EPS WHERE ID = " + id;
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("SQL exception occured:" + e);
+        }
     }
 }

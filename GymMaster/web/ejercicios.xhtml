@@ -41,32 +41,12 @@ and open the template in the editor.
         </b:navBar>
         
         <b:dataTable rendered="true">
-            <h:column>    				
-                <f:facet name="header">Usario</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Ejercicio</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Series</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Repreticiones</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Peso</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Día</f:facet>    				
-            </h:column>
-            <h:column>    				
-                <f:facet name="header">Opciones</f:facet>    				
-                <h:commandButton value="Borrar" 
-                  action="#{userData.deleteEmployee}">                
-                  <f:setPropertyActionListener 
-                     target="#{userData.employee}" value="#{employee}" />
-               </h:commandButton>
-            </h:column>
+            <b:dataTableColumn label="Usuario"/>
+            <b:dataTableColumn label="Nombre"/>
+            <b:dataTableColumn label="Series"/>
+            <b:dataTableColumn label="Repeticiones"/>
+            <b:dataTableColumn label="Peso"/>
+            <b:dataTableColumn label="Día"/>
         </b:dataTable>
     </h:body>
 </html>

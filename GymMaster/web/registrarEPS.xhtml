@@ -7,53 +7,53 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>GuMaster - Agregar EPS</title>
+        <title>GyMaster - Agregar EPS</title>
     </h:head>
     <h:body>
         <b:navBar brand="GyMaster" brandHref="faces/index.xhtml" inverse="true">
-            <b:navbarLinks>
+                <b:navbarLinks>
                 <b:navLink value=" "></b:navLink>
                 <b:navLink value=" "></b:navLink>
-                
+
                 <b:dropMenu value="Clientes">
-                    <b:navLink value="Agregar" href="faces/registrarCliente.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="faces/clientes.xhtml"></b:navLink>
-                </b:dropMenu>
+                                <b:navLink value="Agregar" href="faces/registrarCliente.xhtml"></b:navLink>
+                                <b:navLink value="Mostrar" href="faces/clientes.xhtml"></b:navLink>
+                            </b:dropMenu>
                 <b:navLink value=" "></b:navLink>
                 <b:dropMenu value="Eps">
-                    <b:navLink value="Agregar" href="faces/registrarEPS.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="faces/eps.xhtml"></b:navLink>
-                </b:dropMenu>
+                                <b:navLink value="Agregar" href="faces/registrarEPS.xhtml"></b:navLink>
+                                <b:navLink value="Mostrar" href="faces/eps.xhtml"></b:navLink>
+                            </b:dropMenu>
                 <b:navLink value=" "></b:navLink>
                 <b:dropMenu value="Ejercicios">
-                    <b:navLink value="Agregar" href="faces/registrarEjercicio.xhtml"></b:navLink>
-                    <b:navLink value="Mostrar" href="faces/ejercicios.xhtml"></b:navLink>
-                </b:dropMenu>
-            </b:navbarLinks>
+                                <b:navLink value="Agregar" href="faces/registrarEjercicio.xhtml"></b:navLink>
+                                <b:navLink value="Mostrar" href="faces/ejercicios.xhtml"></b:navLink>
+                            </b:dropMenu>
+                    </b:navbarLinks>
         </b:navBar>
         <h:outputLabel style="font-size: 20px" value="Formulario para registrar una EPS Nueva"/>
         <br/>
         <br/>
-        
+
         <h:form>
             <h:panelGrid columns="3">
-                
+
                 <!--Por si se necesita un campo para la identificación
                 -->
                 <!--<h:outputLabel value="Identificación" />
                 <h:inputText id="identificacionTxt" value="" required="true" label=" Requerido"/>
                 <h:messages for="identificacionTxt" style="color: red"/>-->
-                
+
                 <h:outputLabel value="Nombre" />
-                <b:inputText id="nombreTxt" value="" required="true" >
-                                <f:validateRegex pattern="/^[0-9]+$/"/>
+                <b:inputText id="nombreTxt" value="#{ePSBean.eps.nombre}" required="true" >
+                    <!--<f:validateRegex pattern="/^[0-9]+$/"/>-->
                 </b:inputText>
                 <b:messages for="nombreTxt" style="color: red"/>
-                
+
             </h:panelGrid>
             <!--<h:commandButton actionListener="" value="Registrar" />-->
-            <b:commandButton look="primary" value="SIN ACTIONLISTENER" />
+            <b:commandButton look="primary" value="Registrar" actionListener="#{ePSBean.registrarEPS()}"/>
         </h:form>
-        
+
     </h:body>
 </html>
